@@ -20,8 +20,8 @@
 + 创建和管理数据库对象
   + [创建和管理库](database-management/.md)
   + [创建和管理表](table-management/.md)
-  + [创建和管理分区表](/.md)
-  + [创建和管理视图](/.md)
+  + 创建和管理分区表
+  + 创建和管理视图
   + [创建和管理索引](index-management/.md)
 + [TiDB 事务说明](transaction/.md)
 + 基本 DML 语句说明
