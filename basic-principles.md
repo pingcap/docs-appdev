@@ -12,7 +12,7 @@ category: principle
 * 避免用 TiDB 的保留字如：group，order 等作为单个字段名。
 * 建议所有数据库对象使用小写字母。
 
-## 建表删表规范
+## 创建、删除表规范
 
 基本原则：表的建立在遵循表命名规范前提下，建议业务应用内部封装建表删表语句增加判断逻辑，防止业务流程异常中断。例如：create table if not exists table_name 或者 drop table if exists table_name 语句建议增加 if 判断，避免应用侧由于表的改动造成的异常中断。		
 
@@ -97,4 +97,3 @@ category: principle
 * WHERE条件中不在索引列上进行数学运算或函数运算。
 * 用 in() /union 替换 or，并注意 in 的个数小于 300。
 * 禁止使用 % 前缀进行模糊前缀查询。
-
