@@ -6,12 +6,14 @@ category: management
 
 # 创建和管理库
 
+本文介绍创建和管理数据库的基本 SQL 操作和规范。
+
 ## 创建和管理库
 
 SQL 语句参阅
-[CREATE DATABASE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-create-database#create-database)
-[DROP DATABASE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-drop-database#drop-database)
-[ALTER DATABASE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-alter-database#alter-database)
+- [CREATE DATABASE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-create-database#create-database)
+- [DROP DATABASE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-drop-database#drop-database)
+- [ALTER DATABASE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-alter-database#alter-database)
 
 ## 库命名规范
 
