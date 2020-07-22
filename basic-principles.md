@@ -46,7 +46,7 @@ set @@session.tidb_distsql_scan_concurrency=5
 set @@session.tidb_batch_insert=1
 ```
 
-执行 insert 语句。
+执行 `insert` 语句。
 
 ## Region 热点
 
