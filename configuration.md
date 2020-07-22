@@ -1,6 +1,6 @@
 ---
 title: 常见参数说明
-category: introduction
+summary: 常用参数说明链接
 ---
 
 # 常见参数说明
