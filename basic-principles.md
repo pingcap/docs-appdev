@@ -119,7 +119,7 @@ operator add split-region 1   // 将 region 1 对半拆分成两个 region
 select * from table_a t order by gmt_modified desc limit start，page_offset; 
 ```
 
-多表 `Join` 的分页语句, 如果过滤条件在单个表上, 内查询语句必须走覆盖索引, 先分页, 再 `Join`。
+多表 `Join` 的分页语句，如果过滤条件在单个表上，内查询语句必须走覆盖索引，先分页，再 `Join`。
 
 示例如下：
     错误的写法：
