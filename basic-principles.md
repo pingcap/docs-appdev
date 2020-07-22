@@ -32,7 +32,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
     * 总的行数*(1 + 索引个数) < 30万
     * 一次提交的全部数据小于 100MB
 
-注意事项：无论是大小限制还是行数限制，还要考虑 TiDB 做编码以及事务额外 Key 开销，在使用的时候，建议每个事务的行数不要超过 1 万行，否则有可能会超过限制，或者是性能不佳。建议无论是 `Insert`，`Update` 还是 `Delete` 语句，都通过分 Batch 或者是加 Limit 的方式限制， 启用 Batch 操作步骤参考如下：
+> 注意：无论是大小限制还是行数限制，还要考虑 TiDB 做编码以及事务额外 Key 开销，在使用的时候，建议每个事务的行数不要超过 1 万行，否则有可能会超过限制，或者是性能不佳。建议无论是 `Insert`，`Update` 还是 `Delete` 语句，都通过分 Batch 或者是加 Limit 的方式限制， 启用 Batch 操作步骤参考如下：
 
 {{< copyable "sql" >}}
 
@@ -40,7 +40,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 set @@session.tidb_distsql_scan_concurrency=5
 ```
 
-**该参数设置过大可能导致 tidb oom，SQL 占用内存评估 5 * 4 = 20G，剩余内存至少 30G。**
+> 注意：该参数设置过大可能导致 tidb oom，SQL 占用内存评估 5 * 4 = 20G，剩余内存至少 30G。
 
 {{< copyable "sql" >}}
 
@@ -48,7 +48,7 @@ set @@session.tidb_distsql_scan_concurrency=5
 set @@session.tidb_batch_insert=1
 ```
 
-执行 `insert` 语句。
+执行 `INSERT` 语句。
 
 ## Region 热点
 
