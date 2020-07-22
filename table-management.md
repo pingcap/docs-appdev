@@ -6,15 +6,17 @@ category: management
 
 # 创建和管理表
 
+本文介绍创建和管理数据表的基本 SQL 操作和规范。
+
 ## 创建和管理表
 
 SQL 语句参阅
-[CREATE TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-create-table)
-[DROP TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-drop-table#drop-table)
-[FLASHBACK TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-flashback-table#flashback-table)
-[RENAME TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-rename-table#rename-table)
-[ALTER TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-alter-table#alter-table)
-[RECOVER TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-recover-table#recover-table)
+- [CREATE TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-create-table)
+- [DROP TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-drop-table#drop-table)
+- [FLASHBACK TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-flashback-table#flashback-table)
+- [RENAME TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-rename-table#rename-table)
+- [ALTER TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-alter-table#alter-table)
+- [RECOVER TABLE](https://docs.pingcap.com/zh/tidb/stable/sql-statement-recover-table#recover-table)
 
 ## 表命名规范
 
@@ -35,4 +37,4 @@ SQL 语句参阅
     * 尽量选择有意义的列作为主键。
     * 出于为性能考虑，尽量避免存储超宽表，表字段数不建议超过 60 个，建议单行的总数据大小不要超过 64K，数据长度过大字段最好拆到另外的表。
     * 不推荐使用复杂的数据类型。
-    * 需要 `join` 的字段，数据类型保障绝对一致，避免隐式转换。
+    * 需要 `JION` 的字段，数据类型保障绝对一致，避免隐式转换。
