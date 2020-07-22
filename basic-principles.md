@@ -51,8 +51,9 @@ set @@session.tidb_batch_insert=1
 ## Region 热点
 
 产生热点的原因：
-    * 这条 SQL 涉及到的 region 的 leader 全部在这个 TiKV 上。
-    * 这条 SQL 只涉及到一个 region，并且有大量的请求使用同样或者类似的 SQL。
+
+* 这条 SQL 涉及到的 Region 的 leader 全部在这个 TiKV 上。
+* 这条 SQL 只涉及到一个 Region，并且有大量的请求使用同样或者类似的 SQL 语句。
 
 基本原则：
     * 如果表的数据量比较小，数据存储大概率只涉及到一个 region，大量请求对该表进行写入或者读取都会造成该 region 热点，可以通过手工拆分 region 方式进行调整，调整方式如下：
