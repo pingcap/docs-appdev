@@ -1,5 +1,6 @@
 ---
 title: TiDB 事务说明
+summary: TiDB 事务原理说明及事务模型说明
 category: introduction
 ---
 
