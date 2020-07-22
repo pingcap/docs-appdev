@@ -6,14 +6,16 @@ category: management
 
 # 创建和管理索引
 
+本文介绍创建和管理索引的基本 SQL 操作和规范。
+
 ## 创建和管理索引
 
 SQL 语句参阅
-[CREATE INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-create-index#create-index)
-[ADD INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-add-index#add-index)
-[DROP INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-drop-index#drop-index)
-[RENAME INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-rename-index#rename-index)
-[SHOW INDEXES [FROM|IN]](https://docs.pingcap.com/zh/tidb/stable/sql-statement-show-indexes#show-indexes-fromin)
+- [CREATE INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-create-index#create-index)
+- [ADD INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-add-index#add-index)
+- [DROP INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-drop-index#drop-index)
+- [RENAME INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-rename-index#rename-index)
+- [SHOW INDEXES [FROM|IN]](https://docs.pingcap.com/zh/tidb/stable/sql-statement-show-indexes#show-indexes-fromin)
 
 ## 索引命名规范
 
