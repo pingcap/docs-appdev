@@ -40,7 +40,9 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 set @@session.tidb_distsql_scan_concurrency=5
 ```
 
-# 该参数设置过大可能导致 tidb oom，SQL 占用内存评估 5 * 4 = 20G，剩余内存至少 30G。
+**该参数设置过大可能导致 tidb oom，SQL 占用内存评估 5 * 4 = 20G，剩余内存至少 30G。**
+
+{{< copyable "sql" >}}
 
 ```sql
 set @@session.tidb_batch_insert=1
@@ -51,25 +53,30 @@ set @@session.tidb_batch_insert=1
 ## Region 热点
 
 产生热点的原因：
-
-* 这条 SQL 涉及到的 Region 的 leader 全部在这个 TiKV 上。
-* 这条 SQL 只涉及到一个 Region，并且有大量的请求使用同样或者类似的 SQL 语句。
+    * 这条 SQL 涉及到的 Region 的 leader 全部在这个 TiKV 上。
+    * 这条 SQL 只涉及到一个 Region，并且有大量的请求使用同样或者类似的 SQL 语句。
 
 基本原则：
     * 如果表的数据量比较小，数据存储大概率只涉及到一个 region，大量请求对该表进行写入或者读取都会造成该 region 热点，可以通过手工拆分 region 方式进行调整，调整方式如下：
 
-```sql
-operator add split-region 1   // 将 region 1 对半拆分成两个 region
-```
+    {{< copyable "sql" >}}
+    
+    ```sql
+    operator add split-region 1   // 将 region 1 对半拆分成两个 region
+    ```
 
     * 如果表的数据量比较大，region leader 分布不均衡，某些 tikv 节点 region leader 比较多，不均衡导致的热点需要通过某种机制平衡 leader 分布，平衡方式参考如下：
       * 自动均衡: 
+      
+      {{< copyable "sql" >}}
       
       ```sql
       curl -G "host:status_port/tables/{db}/{table}/scatter"  // 打散相邻 region
       ```
       
       * 手动均衡: 
+      
+      {{< copyable "sql" >}}
       
       ```sql
       operator add transfer-leader 1 2   // 把 region 1 的 leader 调度到 store 2
@@ -81,11 +88,15 @@ operator add split-region 1   // 将 region 1 对半拆分成两个 region
     * `SHARD_ROW_ID_BITS`： 这个 TABLE OPTION 是用来设置隐式 `_tidb_rowid` 的分片数量的 bit 位数。对于 PK 非整数或没有 PK 的表，TiDB 会使用一个隐式的自增 rowid，大量 `INSERT` 时会把数据集中写入单个 region，造成写入热点。通过设置 `SHARD_ROW_ID_BITS` 可以把 rowid 打散写入多个不同的 region，缓解写入热点问题。 但是设置的过大会造成 RPC 请求数放大，增加 CPU 和网络开销。`SHARD_ROW_ID_BITS = 4` 代表 16 个分片， `SHARD_ROW_ID_BITS = 6` 表示 64 个分片，`SHARD_ROW_ID_BITS = 0` 就是默认值 1 个分片 。操作语句如下：
       `CREATE TABLE` 语句示例: 
       
+      {{< copyable "sql" >}}
+      
       ```sql
       CREATE TABLE t (c int) SHARD_ROW_ID_BITS = 4
       ```
       
       `ALTER TABLE` 语句示例：
+      
+      {{< copyable "sql" >}}
       
       ```sql
       ALTER TABLE t SHARD_ROW_ID_BITS = 4
@@ -94,6 +105,7 @@ operator add split-region 1   // 将 region 1 对半拆分成两个 region
 ## 字段上使用函数规范
 
 基本原则：在取出字段上可以使用相关函数,但是在 `Where` 条件中的过滤条件字段上严禁使用任何函数,包括数据类型转换函数。
+
 示例如下：
     错误的写法：
     
@@ -105,6 +117,8 @@ operator add split-region 1   // 将 region 1 对半拆分成两个 region
     
     正确的写法：
     
+    {{< copyable "sql" >}}
+    
     ```sql
     select date_format(gmt_create，'%Y­%m­%d %H:%i:%s')
     from .. .
@@ -114,11 +128,14 @@ operator add split-region 1   // 将 region 1 对半拆分成两个 region
 ## 数据删除规范
 
 基本原则：删除表中全部的数据时，使用 `TRUNCATE` 或者 `DROP` 后重建方式，不要使用 `DELETE`。
+
 详细说明：`DELETE`，`TRUNCATE` 和 `DROP` 都不会立即释放空间，对于 `TRUNCATE` 和 `DROP` 操作，在达到 TiDB 的 GC (garbage collection) 时间后（默认 10 分钟），TiDB 的 GC 机制会删除数据并释放空间。对于 `DELETE` 操作 TiDB 的 GC 机制会删除数据，但不会释放空间，而是当后续数据写入 RocksDB 且进行 compact 时对空间重新利用。
 
 ## 分页查询规范				
 
-基本原则：分页查询语句全部都需要带有排序条件,除非业务方明确要求不要使用任何排序来随机展示数据。常规分页语句写法(`start`: 起始记录数, `page_offset`: 每页记录数)，例如：
+基本原则：分页查询语句全部都需要带有排序条件,除非业务方明确要求不要使用任何排序来随机展示数据。常规分页语句写法(`start`: 起始记录数，`page_offset`: 每页记录数)，例如：
+
+{{< copyable "sql" >}}
 
 ```sql
 select * from table_a t order by gmt_modified desc limit start，page_offset; 
@@ -139,6 +156,8 @@ select * from table_a t order by gmt_modified desc limit start，page_offset;
     ```
     
     正确的写法：
+    
+    {{< copyable "sql" >}}
     
     ```sql
     select from
