@@ -1,6 +1,6 @@
 ---
 title: SQL 开发规范及基本原则
-summary: 开发业务及应用时需要遵守的规范和基本原则
+summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 category: introduction
 ---
 
