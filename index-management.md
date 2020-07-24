@@ -10,7 +10,8 @@ category: management
 
 ## 创建和管理索引
 
-SQL 语句参阅
+SQL 语句参阅：
+
 - [CREATE INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-create-index#create-index)
 - [ADD INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-add-index#add-index)
 - [DROP INDEX](https://docs.pingcap.com/zh/tidb/stable/sql-statement-drop-index#drop-index)
