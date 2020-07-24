@@ -10,12 +10,12 @@ category: management
 
 ## 系统调优
 
-参阅[操作系统性能参数调优](https://docs.pingcap.com/zh/tidb/stable/tune-operating-system)
+参阅[操作系统性能参数调优](https://docs.pingcap.com/zh/tidb/stable/tune-operating-system)。
 
 ## 软件调优
 
-参阅 [TiDB 内存调优](https://docs.pingcap.com/zh/tidb/stable/configure-memory-usage)及其他内容
+参阅 [TiDB 内存调优](https://docs.pingcap.com/zh/tidb/stable/configure-memory-usage)及其他内容。
 
 ## SQL 性能调优
 
-参阅 [SQL 性能调优概览及其他内容](https://docs.pingcap.com/zh/tidb/stable/sql-tuning-overview)
+参阅 [SQL 性能调优概览](https://docs.pingcap.com/zh/tidb/stable/sql-tuning-overview)及其他内容。
