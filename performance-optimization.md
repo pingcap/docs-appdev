@@ -14,9 +14,8 @@ category: management
 
 ## 软件调优
 
-参阅[软件调优-配置-TiDB 内存调优及其他内容](https://docs.pingcap.com/zh/tidb/stable/configure-memory-usage)
+参阅 [TiDB 内存调优](https://docs.pingcap.com/zh/tidb/stable/configure-memory-usage)及其他内容
 
 ## SQL 性能调优
 
 参阅[SQL 性能调优概览及其他内容](https://docs.pingcap.com/zh/tidb/stable/sql-tuning-overview)
-
