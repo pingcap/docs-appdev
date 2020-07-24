@@ -18,4 +18,4 @@ category: management
 
 ## SQL 性能调优
 
-参阅[SQL 性能调优概览及其他内容](https://docs.pingcap.com/zh/tidb/stable/sql-tuning-overview)
+参阅 [SQL 性能调优概览及其他内容](https://docs.pingcap.com/zh/tidb/stable/sql-tuning-overview)
