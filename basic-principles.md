@@ -74,21 +74,21 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 
 * 如果表的数据量比较大，region leader 分布不均衡，某些 tikv 节点 region leader 比较多，不均衡导致的热点需要通过某种机制平衡 leader 分布，平衡方式参考如下：
       
-      自动均衡: 
-      
-      {{< copyable "sql" >}}
-      
-      ```sql
-      curl -G "host:status_port/tables/{db}/{table}/scatter"  // 打散相邻 region
-      ```
-      
-      手动均衡: 
-      
-      {{< copyable "sql" >}}
-      
-      ```sql
-      operator add transfer-leader 1 2   // 把 region 1 的 leader 调度到 store 2
-      ```
+    自动均衡：
+    
+    {{< copyable "sql" >}}
+    
+    ```sql
+    curl -G "host:status_port/tables/{db}/{table}/scatter"  // 打散相邻 region
+    ```
+    
+    手动均衡：
+    
+    {{< copyable "sql" >}}
+    
+    ```sql
+    operator add transfer-leader 1 2   // 把 region 1 的 leader 调度到 store 2
+    ```
 
 建议事项：
 
@@ -154,7 +154,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 
 * 多表 `Join` 的分页语句，如果过滤条件在单个表上，内查询语句必须走覆盖索引，先分页，再 `Join`。示例如下：
 
-    错误的写法：
+- 错误的写法：
     
     ```sql
     select a.column_a，a.column_b .. . b.column_a，b.column_b .. .
@@ -165,7 +165,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
     start，page_offset;
     ```
     
-    正确的写法：
+- 正确的写法：
     
     {{< copyable "sql" >}}
     
