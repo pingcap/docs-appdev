@@ -10,4 +10,4 @@ category: introduction
 
 ## 各类故障诊断
 
-参阅[TiDB 集群故障诊断常见问题及其他内容](https://docs.pingcap.com/zh/tidb/stable/troubleshoot-tidb-cluster)
+参阅[TiDB 集群故障诊断常见问题](https://docs.pingcap.com/zh/tidb/stable/troubleshoot-tidb-cluster)及其他内容。
