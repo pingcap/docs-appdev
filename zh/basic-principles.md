@@ -79,7 +79,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
     {{< copyable "sql" >}}
     
     ```sql
-    curl -G "host:status_port/tables/{db}/{table}/scatter"  // 打散相邻 region
+    curl -G "host:status_port/tables/DB_NAME/TABLE_NAME/scatter"  // 打散相邻 region
     ```
     
     手动均衡：
