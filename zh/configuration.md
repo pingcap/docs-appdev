@@ -9,8 +9,8 @@ summary: 常用参数说明链接
 
 ## 命令行参数
 
-参阅[TiDB 配置参数](https://docs.pingcap.com/zh/tidb/stable/command-line-flags-for-tidb-configuration)及其他内容。
+参阅 [TiDB 配置参数](https://docs.pingcap.com/zh/tidb/stable/command-line-flags-for-tidb-configuration)及其他内容。
 
 ## 配置文件参数
 
-参阅[TiDB 配置文件描述](https://docs.pingcap.com/zh/tidb/stable/tidb-configuration-file)及其他内容。
+参阅 [TiDB 配置文件描述](https://docs.pingcap.com/zh/tidb/stable/tidb-configuration-file)及其他内容。
