@@ -1,5 +1,5 @@
 ---
-title: 使用 TiFlash
+title: TiFlash 常见问题处理
 summary: TiFlash 常见使用问题解析
 category: introduction
 ---

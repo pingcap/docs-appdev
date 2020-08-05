@@ -1,5 +1,5 @@
 ---
-title: 故障诊断
+title: TiDB 故障诊断
 summary: TiDB 集群常见问题及故障诊断
 category: introduction
 ---
