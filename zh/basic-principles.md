@@ -37,23 +37,23 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 >
 > 无论是大小限制还是行数限制，还要考虑 TiDB 做编码以及事务额外 Key 开销，在使用的时候，建议每个事务的行数不要超过 1 万行，否则有可能会超过限制，或者是性能不佳。建议无论是 `Insert`，`Update` 还是 `Delete` 语句，都通过分 Batch 或者是加 Limit 的方式限制，启用 Batch 操作步骤参考如下：
 
-    {{< copyable "sql" >}}
+{{< copyable "sql" >}}
 
-    ```sql
-    set @@session.tidb_distsql_scan_concurrency=5
-    ```
+```sql
+set @@session.tidb_distsql_scan_concurrency=5
+```
 
 > **注意：**
 >
 > 该参数设置过大可能导致 tidb oom，SQL 占用内存评估 5 * 4 = 20G，剩余内存至少 30G。
 
-    {{< copyable "sql" >}}
+{{< copyable "sql" >}}
 
-    ```sql
-    set @@session.tidb_batch_insert=1
-    ```
+```sql
+set @@session.tidb_batch_insert=1
+```
 
-    执行 `INSERT` 语句。
+执行 `INSERT` 语句。
 
 ## Region 热点
 
@@ -66,11 +66,11 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 
 * 如果表的数据量比较小，数据存储大概率只涉及到一个 region，大量请求对该表进行写入或者读取都会造成该 region 热点，可以通过手工拆分 region 方式进行调整，调整方式如下：
 
-    {{< copyable "sql" >}}
+{{< copyable "sql" >}}
 
-    ```sql
-    operator add split-region 1   // 将 region 1 对半拆分成两个 region
-    ```
+```sql
+operator add split-region 1   // 将 region 1 对半拆分成两个 region
+```
 
 * 如果表的数据量比较大，region leader 分布不均衡，某些 tikv 节点 region leader 比较多，不均衡导致的热点需要通过某种机制平衡 leader 分布，平衡方式参考如下：
 
@@ -140,7 +140,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 
 详细说明：`DELETE`，`TRUNCATE` 和 `DROP` 都不会立即释放空间，对于 `TRUNCATE` 和 `DROP` 操作，在达到 TiDB 的 GC (garbage collection) 时间后（默认 10 分钟），TiDB 的 GC 机制会删除数据并释放空间。对于 `DELETE` 操作 TiDB 的 GC 机制会删除数据，但不会释放空间，而是当后续数据写入 RocksDB 且进行 compact 时对空间重新利用。
 
-## 分页查询规范				
+## 分页查询规范
 
 基本原则：
 
@@ -149,7 +149,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
     {{< copyable "sql" >}}
 
     ```sql
-    select * from table_a t order by gmt_modified desc limit start，page_offset; 
+    select * from table_a t order by gmt_modified desc limit start，page_offset;
     ```
 
 * 多表 `Join` 的分页语句，如果过滤条件在单个表上，内查询语句必须走覆盖索引，先分页，再 `Join`。示例如下：
@@ -175,7 +175,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
     a.column_a，a.column_b .. . b.column_a，b.column_b .. . (select t.column_a，t.column_b .. .
     from table_t t
     where t.xxx.. .
-    order by t.yyy limit start，page_offerset) a,				
+    order by t.yyy limit start，page_offerset) a,
     table_b b
     a.column_c = b.column_d;
     select * from t limit 10000,10;
