@@ -11,10 +11,13 @@ jobs:
           name: "Install markdownlint"
           command: |
             sudo npm install -g markdownlint-cli@0.17.0
+
       - run:
-          name: "Lint"
+          name: "Lint edited files"
           command: |
-            markdownlint .
+            git remote add upstream https://github.com/pingcap/dev-guide.git
+            git fetch upstream
+            markdownlint $(git diff-tree --name-only --no-commit-id -r upstream/master..HEAD -- '*.md' ':(exclude).github/*'
 
   build:
     docker:
