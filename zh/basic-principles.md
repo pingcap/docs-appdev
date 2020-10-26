@@ -30,16 +30,16 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 * 拒绝大事务，TiDB 对单个事务的大小有限制，这层限制是在 KV 层面，反映在 SQL 层面的话，一行数据会映射为一个 KV entry，每多一个索引，也会增加一个 KV entry，所以这个限制反映在 SQL 层面如下：
 
     * 单行数据不大于 6MB
-    * 总的行数*(1 + 索引个数) < 30万
-    * 一次提交的全部数据小于 100MB
+    * 默认一次提交的全部数据 100MB，可以通过调整 `txn-total-size-limit` 更改，最大不超过 10GB
+    * 在 4.0 以前的版本，TiDB 限制了单个事务的键值对的总数量不超过 30 万条，从 4.0 版本起 TiDB 取消了这项限制。
 
 > **注意：**
 >
-> 无论是大小限制还是行数限制，还要考虑 TiDB 做编码以及事务额外 Key 开销，在使用的时候，建议每个事务的行数不要超过 1 万行，否则有可能会超过限制，或者是性能不佳。建议无论是 `Insert`，`Update` 还是 `Delete` 语句，都通过分 Batch 或者是加 Limit 的方式限制，启用 Batch 操作步骤参考：`set @@session.tidb_distsql_scan_concurrency=5`。
+> 无论是大小限制还是行数限制，还要考虑 TiDB 做编码以及事务额外 Key 开销，在使用的时候，建议每个事务的行数不要超过 1 万行，否则有可能性能不佳。建议无论是 `Insert`，`Update` 还是 `Delete` 语句，都通过分 Batch 或者是加 Limit 的方式限制，启用 Batch 操作步骤参考：`set @@session.tidb_distsql_scan_concurrency=5`。
 
 > **注意：**
 >
-> 该参数设置过大可能导致 tidb oom，SQL 占用内存评估 5 * 4 = 20G，剩余内存至少 30G。设置参考：`set @@session.tidb_batch_insert=1`。
+> 由于执行事务时 TiDB 进程的内存消耗大约是事务大小的 6 倍以上，事务设置过大，或者 Batch 过高，可能导致 tidb oom，需要评估好内存容量。
 
 
 ## Region 热点
