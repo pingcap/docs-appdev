@@ -41,7 +41,6 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 >
 > 由于执行事务时 TiDB 进程的内存消耗大约是事务大小的 6 倍以上，事务设置过大，或者 Batch 过高，可能导致 tidb oom，需要评估好内存容量。
 
-
 ## Region 热点
 
 产生热点的原因：
@@ -83,7 +82,7 @@ operator add split-region 1   // 将 region 1 对半拆分成两个 region
 * TiDB Partition：  通过设置表分区方式来避免热点，支持按照 Hash 以及按照 Range 分区。
 * `SHARD_ROW_ID_BITS`： 这个 TABLE OPTION 是用来设置隐式 `_tidb_rowid` 的分片数量的 bit 位数。对于 PK 非整数或没有 PK 的表，TiDB 会使用一个隐式的自增 rowid，大量 `INSERT` 时会把数据集中写入单个 region，造成写入热点。通过设置 `SHARD_ROW_ID_BITS` 可以把 rowid 打散写入多个不同的 region，缓解写入热点问题。 但是设置的过大会造成 RPC 请求数放大，增加 CPU 和网络开销。`SHARD_ROW_ID_BITS = 4` 代表 16 个分片， `SHARD_ROW_ID_BITS = 6` 表示 64 个分片，`SHARD_ROW_ID_BITS = 0` 就是默认值 1 个分片 。操作语句如下：
 
-    `CREATE TABLE` 语句示例: 
+    `CREATE TABLE` 语句示例:
 
     {{< copyable "sql" >}}
 

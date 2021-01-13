@@ -1,5 +1,6 @@
 # TiDB 中文开发者指南
 
+<!-- markdownlint-disable MD007 -->
 ## 目录
 
 + 创建和管理数据库对象
