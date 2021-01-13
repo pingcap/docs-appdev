@@ -13,7 +13,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 * 命名只能使用英文字母、数字、下划线；
 * 避免用 TiDB 的[关键字](https://docs.pingcap.com/zh/tidb/dev/keywords)，如 group，error，rank 等作为对象名；
 * 建议所有的数据库对象使用小写字母；
-* 所有的数据库对象的命名请注意[标识符长度限制](https://docs.pingcap.com/zh/tidb/dev/tidb-limitations#%E6%A0%87%E8%AF%86%E7%AC%A6%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6) ；
+* 所有的数据库对象的命名请注意[标识符长度硬限制](https://docs.pingcap.com/zh/tidb/dev/tidb-limitations#%E6%A0%87%E8%AF%86%E7%AC%A6%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6) ；
 
 ## 数据库命名规范
 
