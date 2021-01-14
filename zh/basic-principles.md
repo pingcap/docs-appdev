@@ -27,7 +27,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 * 建议对表的用途进行注释说明，以便于统一认识；
   临时用统计表（tmp_t_crm_relation_0425）
   备份表（bak_t_crm_relation_20170425）
-* 只支持将 [lower-case-table-names] (https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_lower_case_table_names) 值设为 2，即数字字典中记录的表名区分大小写，匹配查找表名时不区分大小写；
+* 只支持将 [lower-case-table-names](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_lower_case_table_names) 值设为 2，即数字字典中记录的表名区分大小写，匹配查找表名时不区分大小写；
 
 ## 字段命名规范
 
@@ -45,6 +45,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 * 多单词组成的字段名，使用能代表意义的缩写 ；
 
 ## 表的设计
+
 * 表需要有主键或者非空唯一索引，能与各项复制工具更好地兼容；
 * 主键不要带有业务含义；
 * 业务表使用自增主键时，字段类型推荐使用  bigint unsigned，最大值可达 18446744073709551615；
@@ -55,12 +56,14 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 * 表对象的设计请注意[单个 Table 的限制](https://docs.pingcap.com/zh/tidb/dev/tidb-limitations#%E5%8D%95%E4%B8%AA-table-%E7%9A%84%E9%99%90%E5%88%B6) ；
 
 ## 字符集
+
 * 建表时只使用默认的 utf8mb4 编码；
 * utf8mb4 的默认排序规则为 utf8mb4_bin（区分大小写）；
-* 支持 utf8mb4_general_ci（不区分大小写），但是需要在集群环境部署时配置 [新的排序规则框架] (https://docs.pingcap.com/zh/tidb/dev/character-set-and-collation#%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99%E6%94%AF%E6%8C%81)；
-* 其他的排序规则仅为语法支持，实际不支持； 
+* 支持 utf8mb4_general_ci（不区分大小写），但是需要在集群环境部署时配置 [新的排序规则框架](https://docs.pingcap.com/zh/tidb/dev/character-set-and-collation#%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99%E6%94%AF%E6%8C%81)；
+* 其他的排序规则仅为语法支持，实际不支持；
 
 ## 列的自增属性
+
 * 列的自增属性仅保证唯一，仅能保证在单个计算节点中自增，不保证多个计算节点中自增，不保证自动分配的值的连续性。业务不应该依赖自增属性的连续性和有序性，如记录的插入顺序排序应按照记录的创建时间。带有自增属性的列出现空洞和跳跃插入的现象是正常现象；
 * 不要在语句中显式指定具有自增属性的列的值，由 TiDB 自动分配，否则可能会出现值重复冲突；
 * 允许移除列的 AUTO_INCREMENT 属性，但是请谨慎评估，移除该属性后不可恢复；
@@ -73,7 +76,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 ## 变更表规范
 
 * 不支持单条 ALTER TABLE 语句中完成多个操作，不能在单个语句中添加多个列或索引，需要更换成多个单个列或索引的操作；
-* 不支持对字段类型的有损修改或修改为超集，请参考[ddl-的限制] https://docs.pingcap.com/zh/tidb/stable/mysql-compatibility#ddl-%E7%9A%84%E9%99%90%E5%88%B6 ；
+* 不支持对字段类型的有损修改或修改为超集，请参考[ddl-的限制](https://docs.pingcap.com/zh/tidb/stable/mysql-compatibility#ddl-%E7%9A%84%E9%99%90%E5%88%B6)；
 
 ## 大事务处理
 
@@ -114,7 +117,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
 ## 分页查询 order by 语法使用规范
 
 * 分页查询语句需要带有排序条件，除业务排序条件外还应包含主键或者其他唯一键以保证分页稳定，规避没有业务排序字段或者一个业务排序字段值匹配多条记录导致结果集不稳定；
-  常规分页语句写法(start:起始记录数,page_offset:每页记录数)： 
+  常规分页语句写法(start:起始记录数,page_offset:每页记录数)：
   select * from table_a t order by gmt_modified desc,pk limit start，page_offset;
 
 ## group by 语法使用规范
@@ -123,7 +126,7 @@ summary: 了解开发业务及应用时需要遵守的规范和基本原则。
    以下的语句是不被允许的，select class,stuname,max(score) as max_score from score group by class;
 
 ## 模糊匹配 like 语法使用规范
-				
+
 * 使用 like 模糊匹配时，查找字符串中通配符 % 放首位会导致无法使用索引。业务语句中使用 like 查找字符串不使用 % 放首位，或者使用时结合其他有效的约束条件;
 
 ## 视图使用规范
