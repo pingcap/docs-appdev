@@ -1,5 +1,5 @@
 ---
-title: App Dev for Python/mysql-connector
+title: App Development for Python/mysql-connector
 ---
 
-# App Dev for Python/mysql-connector
+# App Development for Python/mysql-connector

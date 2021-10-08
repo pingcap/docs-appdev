@@ -1,12 +1,12 @@
-# App Dev Guide
+# App Development Guide
 
 <!-- markdownlint-disable MD007 -->
 ## Documentation List
 
-+ [App Dev Overview](app-dev-overview.md)
-+ [App Dev for Hibernate ORM](for-hibernate-orm.md)
-+ [App Dev for Django](for-django.md)
-+ [App Dev for SQLAlchemy](for-sqlalchemy.md)
-+ [App Dev for go-sql-driver/mysql](for-go-sql-driver-mysql.md)
-+ [App Dev for GORM](for-gorm.md)
-+ [App Dev for Python/mysql-connector](for-python-mysql-connector.md)
++ [App Development Overview](app-dev-overview.md)
++ [App Development for Hibernate ORM](for-hibernate-orm.md)
++ [App Development for Django](for-django.md)
++ [App Development for SQLAlchemy](for-sqlalchemy.md)
++ [App Development for go-sql-driver/mysql](for-go-sql-driver-mysql.md)
++ [App Development for GORM](for-gorm.md)
++ [App Development for Python/mysql-connector](for-python-mysql-connector.md)

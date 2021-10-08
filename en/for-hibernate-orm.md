@@ -1,5 +1,5 @@
 ---
-title: App Dev for Hibernate ORM
+title: App Development for Hibernate ORM
 ---
 
-# App Dev for Hibernate ORM
+# App Development for Hibernate ORM

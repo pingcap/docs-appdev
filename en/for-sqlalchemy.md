@@ -1,5 +1,5 @@
 ---
-title: App Dev for SQLAlchemy
+title: App Development for SQLAlchemy
 ---
 
-# App Dev for SQLAlchemy
+# App Development for SQLAlchemy

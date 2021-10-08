@@ -1,5 +1,5 @@
 ---
-title: App Dev for Django
+title: App Development for Django
 ---
 
-# App Dev for Hibernate Django
+# App Development for Hibernate Django

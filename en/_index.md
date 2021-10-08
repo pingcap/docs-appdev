@@ -1,6 +1,6 @@
 ---
-title: App Dev Guide
+title: App Development Guide
 summary: Application development guide for developers based on TiDB.
 ---
 
-# App Dev Guide
+# App Development Guide

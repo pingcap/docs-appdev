@@ -1,5 +1,5 @@
 ---
-title: App Dev for go-sql-driver/mysql
+title: App Development for go-sql-driver/mysql
 ---
 
-# App Dev for go-sql-driver/mysql
+# App Development for go-sql-driver/mysql

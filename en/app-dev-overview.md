@@ -1,5 +1,5 @@
 ---
-title: App Dev Overview
+title: App Development Overview
 ---
 
-# App Dev Overview
+# App Development Overview

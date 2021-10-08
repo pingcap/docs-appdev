@@ -1,5 +1,5 @@
 ---
-title: App Dev for GORM
+title: App Development for GORM
 ---
 
-# App Dev for GORM
+# App Development for GORM
