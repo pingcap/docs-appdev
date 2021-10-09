@@ -3,3 +3,382 @@ title: App Development for Hibernate ORM
 ---
 
 # App Development for Hibernate ORM
+
+This tutorial shows you how to build a simple Java application using TiDB and the Hibernate ORM, the best practices, and the known limitations.
+
+## Step 1. Start a TiDB cluster
+
+Start a pseudo TiDB cluster on your local storage:
+
+```bash
+docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
+```
+
+The above command starts a temporary and single-node cluster with mock TiKV. The cluster listens on the port `$LOCAL_PORT`. After the cluster is stopped, any changes already made to the database are not persisted.
+
+> **Note:**
+>
+> To deploy a "real" TiDB cluster for production, see the following guides:
+>
+> + [Deploy TiDB using TiUP for On-Premises](https://docs.pingcap.com/tidb/stable/production-deployment-using-tiup)
+> + [Deploy TiDB on Kubernetes](https://docs.pingcap.com/tidb-in-kubernetes/stable)
+>
+> You can also [use TiDB Cloud](https://pingcap.com/products/tidbcloud/), a fully-managed Database-as-a-Service (DBaaS), which offers free trial.
+
+## Step 2. Create a database
+
+1. Connect to TiDB. Because TiDB is compatible with the MySQL protocol, you can connect to TiDB using any client. The following example uses the MySQL client:
+
+    ```bash
+    mysql -u root -h 127.0.0.1 -P $LOCAL_PORT
+    ```
+
+2. In the SQL shell, create the `bank` database that your application will use:
+
+    ```sql
+    CREATE DATABASE bank;
+    ```
+
+3. Create a SQL user for your application:
+
+    ```sql
+    CREATE USER <username> WITH PASSWORD <password>;
+    ```
+
+    Take note of the username and password. You will use it in your application code later.
+
+4. Grant necessary permissions to the SQL user you have just created:
+
+    ```sql
+    GRANT ALL ON DATABASE bank TO <username>;
+    ```
+
+## Step 3. Run the Hibernate application
+
+The sample application code in this tutorial (`Example.java`) uses Hibernate to map Java methods to SQL operations. The code performs the following operations that roughly correspond to method calls in the `Example` class:
+
+1. From line 24 to line 105: creates the `Example$User` and `Example$Order` tables in the `hibernate_example` database as specified by the `User` and the `Order` mapping classes. For example, the `User` class corresponds to the creation of a table as follows:
+
+    ```sql
+    CREATE TABLE `Example$User` (
+    `userId` int(11) NOT NULL AUTO_INCREMENT,
+    `gender` int(11) DEFAULT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`userId`) /*T![clustered_index] CLUSTERED */
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=758190
+    ```
+
+2. From line 116 to line 128: inserts demo rows into the table with the constructed `User` instances and `Order` instances.
+3. Line 130: updates the `Example$Order` table by modifying the `Order` instance.
+4. Line 133: removes one row from the `Example$Order` table.
+5. Line?: executes a query which joins the `Example$User` table and the `Example$Order` table, gets the name of the user whose total order price is greater than `500`.
+
+The contents of `Example.java`:
+
+```java
+package com.pingcap;
+
+package com.pingcap.hibernate;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Iterator;
+import java.util.List;
+
+public class Example {
+
+   public static enum Gender {
+      MALE, FEMALE
+   }
+
+   /**
+    * The User class.
+    */
+   @Entity
+   public static class User {
+      /** The ID. */
+      @Id
+      @GeneratedValue(strategy=GenerationType.IDENTITY)
+      private int userId;
+
+      private String name;
+
+      private Gender gender;
+
+      public User() {}
+
+      public User(String name, Gender gender) {
+         setName(name);
+         setGender(gender);
+      }
+
+      public int getUserId() {
+         return userId;
+      }
+
+      public String getName() {
+         return name;
+      }
+
+      public void setName(String name) {
+         this.name = name;
+      }
+
+      public Gender getGender() {
+         return gender;
+      }
+
+      public void setGender(Gender gender) {
+         this.gender = gender;
+      }
+   }
+
+   @Entity
+   public static class Order {
+      /** The order ID. */
+      @Id
+      @GeneratedValue(strategy=GenerationType.IDENTITY)
+      private int orderId;
+
+      /** The user ID related to this order. */
+      private int userId;
+
+      /** The price. */
+      private double price;
+
+      public Order() {}
+
+      public Order(int userId, double price) {
+         setUserId(userId);
+         setPrice(price);
+      }
+
+      public int getOrderId() {
+         return orderId;
+      }
+
+      public int getUserId() {
+         return userId;
+      }
+
+      public void setUserId(int userId) {
+         this.userId = userId;
+      }
+
+      public double getPrice() {
+         return price;
+      }
+
+      public void setPrice(double price) {
+         this.price = price;
+      }
+   }
+
+
+   /**
+    * The main method.
+    *
+    * @param args the arguments
+    */
+   public static void main(String[] args) {
+      Session session = openSession();
+      try {
+         User tom = new User("Tom", Gender.MALE);
+         persist(session, tom);
+
+         User jack = new User("Jack", Gender.MALE);
+         persist(session, jack);
+
+         Order order1 = new Order(tom.getUserId(), 100.0);
+         Order order2 = new Order(tom.getUserId(), 200.0);
+         Order order3 = new Order(jack.getUserId(), 300.0);
+
+         persist(session, order1);
+         persist(session, order2);
+         persist(session, order3);
+
+         order1.setPrice(500);
+         persist(session, order1);
+
+         session.delete(order3);
+
+         Query query = session.createQuery("SELECT u.name FROM Example$User u JOIN Example$Order o ON u.userId = o.userId GROUP BY u.name HAVING SUM(o.price) > 500");
+         List list = query.list();
+         Iterator it = list.iterator();
+         while (it.hasNext()) {
+            System.out.println("User name:" + (String) it.next());
+         }
+      } finally {
+         session.close();
+      }
+   }
+
+   /**
+    * Persists the object by wrapping an explicit transaction.
+    *
+    * @param obj the user
+    * @throws Exception the exception
+    */
+   private static void persist(Session session, Object obj) {
+      session.getTransaction().begin();
+      session.persist(obj);
+      session.getTransaction().commit();
+   }
+
+   /** The session factory. */
+   private static SessionFactory sessionFactory = null;
+
+   /**
+    * Open session.
+    *
+    * @return the session
+    */
+   private static Session openSession() {
+      if (sessionFactory == null) {
+         final Configuration configuration = new Configuration();
+         configuration.addAnnotatedClass(User.class);
+         configuration.addAnnotatedClass(Order.class);
+
+         sessionFactory = configuration.buildSessionFactory(new StandardServiceRegistryBuilder().build());
+      }
+      return sessionFactory.openSession();
+   }
+}
+```
+
+### Step 1. Get the code
+
+To get the `Example.java` code above, clone the `tidb-hibernate-example` repo to your machine:
+
+```shell
+git clone https://github.com/bb7133/tidb-hibernate-example
+```
+
+### Step 2. Update the connection parameters
+
+Edit `src/main/resources/hibernate.properties` in a text editor:
+
+1. Modify the `hibernate.connection.url` property with the port number from the connection string above:
+
+    ```
+    hibernate.connection.url jdbc:mysql://127.0.0.1:4000/hibernate_example
+    hibernate.connection.username root
+    hibernate.connection.password
+    ```
+
+    In the above example, `4000` is the port number on which the TiDB cluster is listening.
+
+2. Set the `hibernate.connection.username` property to the username you have created in [Create a database](#step-2-create-a-database).
+
+3. Set the `hibernate.connection.password` property to the user's password.
+
+### Step 3. Run the code
+
+Compile and run the application code using `gradlew` that also downloads the dependencies.
+
+```shell
+./gradlew run
+```
+
+At the end of the output, you should see:
+
+```
+User name: Jack
+```
+
+To verify whether the results have been updated successfully in the database, execute the following statement in the MySQL client:
+
+```sql
+> SELECT * FROM ;
++----+-----------+
+| id | balance   |
++----+-----------+
+|  1 |    900.00 |
+|  2 |    350.00 |
+|  3 |  |
++----+-----------+
+3 rows in set (0.03 sec)
+```
+
+## Best practices
+
+This section introduces the best practices for building Java applications using TiDB and Hibernate.
+
+### Quotes for identifiers
+
+Most of the keywords in MySQLDialect are not registered as 'reserved keywords', so if an entity is defined with a name in the MySQL reserved keywords, an error may be reported. For example, suppose that you have an entity named Set:
+@Entity
+public class Set {
+    ...
+}
+
+Set is a reserved keywords in both TiDB and MySQL, there will be an error like the following:
+ERROR: You have an error in your SQL syntax; check the manual that corresponds to your TiDB version for the right syntax to use line 1 column 15 near "Set" 
+Exception in thread "main" javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: could not execute statement
+
+To avoid that, it is recommended to set GLOBALLY_QUOTED_IDENTIFIERS=true in the configuration file of Hibernate ORM.
+Collations
+By default, TiDB does not support case-insensitive/accent-insensitive collations, all collations are treated as aliases of _bin collation, unless the "new collation framework" is enabled.
+Please notice that "new collation framework" can be enabled only when you initialize a cluster.
+JDBC
+Most ‘best practices' that applies to JDBC can be adopted to Hibernate, please check Best Practices for Developing Java Applications with TiDB for it.
+Known Limitations
+Limited support for Foreign Key
+Foreign Key constraints and cascades updates are not fully supported by TiDB yet:
+Let's take the previous demo application as an example, if you define a one-to-many mapping for Example$User and Example$Order:
+  @Entity
+  public static class User {
+    ...
+
+    @OneToMany
+    @JoinColumn(name = "userId")
+    private Set<Order> orders;
+  }  
+
+This leads to a foreign key constraint for the definition of Example$Order table:
+CREATE TABLE `Example$Order` (
+  `orderId` int(11) NOT NULL AUTO_INCREMENT,
+  `price` double NOT NULL,
+  `userId` int(11) NOT NULL,
+  PRIMARY KEY (`orderId`) /*T![clustered_index] CLUSTERED */,
+  CONSTRAINT `FKq64l0s3am0rlue6gxsxljg056` FOREIGN KEY (`userId`) REFERENCES `Example$User` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=1618271
+
+The definition of FOREIGN KEY is supported by TiDB, but it does not take affect actually, considering the following case:
+tidb> select * from Example$User;
++--------+--------+------+
+| userId | gender | name |
++--------+--------+------+
+|      1 |      0 | Tom  |
+|      2 |      0 | Jack |
++--------+--------+------+
+2 rows in set (0.00 sec)
+
+tidb> select * from Example$Order;                                                                               +---------+-------+--------+
++---------+-------+--------+ 
+| orderId | price | userId |
++---------+-------+--------+
+|       1 |   500 |      1 |
+|       2 |   200 |      1 |
+|       3 |   300 |      2 |
++---------+-------+--------+
+
+If you try to delete the row Jack from Example$User table, by either the Hibernate code(delete(session, jack)) or SQL statement(delete from Example$User where userId=2;), an error is expected:
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`hibernate_example`.`Example$Order`, CONSTRAINT `FKrd372ndoovvnmduu9iwffri3a` FOREIGN KEY (`orderId`) REFERENCES `Example$User` (`userId`))
+
+However, the error will not be reported by TiDB, since foreign key constraint is ignored.
+To avoid it, you need to maintain the mapping by yourself.
+The support of Foreign Key is on the roadmap of TiDB, you can track issue(#18209) for more progress.
+What's next?
+Read more about using the Hibernate ORM.
+You might also be interested in the following pages:
+- Best Practices for Developing Java Applications with TiDB 
+
