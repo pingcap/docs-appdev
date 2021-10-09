@@ -15,7 +15,7 @@ Start a pseudo TiDB cluster on your local storage:
 docker run pingcap/tidb:v5.1.0
 ```
 
-The above command starts a temporary and single-node  TiDB cluster with mock TiKV. After the cluster is stopped, any changes already made to the database are not persisted.
+The above command starts a temporary and single-node TiDB cluster with mock TiKV. After the cluster is stopped, any changes already made to the database are not persisted.
 
 > **Note:**
 >
