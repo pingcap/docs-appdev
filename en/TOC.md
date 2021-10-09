@@ -4,7 +4,7 @@
 ## Documentation List
 
 + [App Development Overview](app-dev-overview.md)
-+ Sample Apps
++ Quick Starts
     - [App Development for Hibernate ORM](for-hibernate-orm.md)
     - [App Development for Django](for-django.md)
     - [App Development for SQLAlchemy](for-sqlalchemy.md)

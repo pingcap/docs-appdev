@@ -1,5 +1,6 @@
 ---
 title: App Development for Hibernate ORM
+summary: Learn how to develop a simple Java application using TiDB and the Hibernate ORM.
 ---
 
 # App Development for Hibernate ORM
@@ -20,7 +21,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 >
 > To deploy a "real" TiDB cluster for production, see the following guides:
 >
-> + [Deploy TiDB using TiUP for On-Premises](https://docs.pingcap.com/tidb/stable/production-deployment-using-tiup)
+> + [Deploy TiDB using TiUP for On-Premises](https://docs.pingcap.com/tidb/v5.1/production-deployment-using-tiup)
 > + [Deploy TiDB on Kubernetes](https://docs.pingcap.com/tidb-in-kubernetes/stable)
 >
 > You can also [use TiDB Cloud](https://pingcap.com/products/tidbcloud/), a fully-managed Database-as-a-Service (DBaaS), which offers free trial.
@@ -71,7 +72,7 @@ The sample application code in this tutorial (`Example.java`) uses Hibernate to 
 2. From line 116 to line 128: inserts demo rows into the table with the constructed `User` instances and `Order` instances.
 3. Line 130: updates the `Example$Order` table by modifying the `Order` instance.
 4. Line 133: removes one row from the `Example$Order` table.
-5. Line?: executes a query which joins the `Example$User` table and the `Example$Order` table, gets the name of the user whose total order price is greater than `500`.
+5. From line 135 to line 140: executes a query which joins the `Example$User` table and the `Example$Order` table and gets the name of the user whose total order price is greater than `500`.
 
 The contents of `Example.java`:
 
@@ -254,9 +255,9 @@ public class Example {
 }
 ```
 
-### Step 1. Get the code
+### Step 1. Get the application code
 
-To get the `Example.java` code above, clone the `tidb-hibernate-example` repo to your machine:
+To get the `Example.java` code above, clone the `tidb-hibernate-example` repository to your machine:
 
 ```shell
 git clone https://github.com/bb7133/tidb-hibernate-example
@@ -266,7 +267,7 @@ git clone https://github.com/bb7133/tidb-hibernate-example
 
 Edit `src/main/resources/hibernate.properties` in a text editor:
 
-1. Modify the `hibernate.connection.url` property with the port number from the connection string above:
+1. Modify the `hibernate.connection.url` property with the port number from the `hibernate.properties` configuration file:
 
     ```
     hibernate.connection.url jdbc:mysql://127.0.0.1:4000/hibernate_example
@@ -280,7 +281,7 @@ Edit `src/main/resources/hibernate.properties` in a text editor:
 
 3. Set the `hibernate.connection.password` property to the user's password.
 
-### Step 3. Run the code
+### Step 3. Run the application code
 
 Compile and run the application code using `gradlew` that also downloads the dependencies.
 
@@ -314,36 +315,56 @@ This section introduces the best practices for building Java applications using 
 
 ### Quotes for identifiers
 
-Most of the keywords in MySQLDialect are not registered as 'reserved keywords', so if an entity is defined with a name in the MySQL reserved keywords, an error may be reported. For example, suppose that you have an entity named Set:
+Most of the keywords in MySQLDialect are not registered as "reserved keywords". Therefore, if an entity is defined with a name in the MySQL reserved keywords, an error might be reported. For example, suppose that you have an entity named `Set`:
+
+```
 @Entity
 public class Set {
     ...
 }
+```
 
-Set is a reserved keywords in both TiDB and MySQL, there will be an error like the following:
-ERROR: You have an error in your SQL syntax; check the manual that corresponds to your TiDB version for the right syntax to use line 1 column 15 near "Set" 
+Because `Set` is a reserved keywords in both TiDB and MySQL, an error similar to the following one is reported:
+
+```
+ERROR: You have an error in your SQL syntax; check the manual that corresponds to your TiDB version for the right syntax to use line 1 column 15 near "Set"
 Exception in thread "main" javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: could not execute statement
+```
 
-To avoid that, it is recommended to set GLOBALLY_QUOTED_IDENTIFIERS=true in the configuration file of Hibernate ORM.
-Collations
-By default, TiDB does not support case-insensitive/accent-insensitive collations, all collations are treated as aliases of _bin collation, unless the "new collation framework" is enabled.
-Please notice that "new collation framework" can be enabled only when you initialize a cluster.
-JDBC
-Most ‘best practices' that applies to JDBC can be adopted to Hibernate, please check Best Practices for Developing Java Applications with TiDB for it.
-Known Limitations
-Limited support for Foreign Key
-Foreign Key constraints and cascades updates are not fully supported by TiDB yet:
-Let's take the previous demo application as an example, if you define a one-to-many mapping for Example$User and Example$Order:
-  @Entity
-  public static class User {
-    ...
+To avoid the above error, it is recommended to set `GLOBALLY_QUOTED_IDENTIFIERS=true` in the configuration file of Hibernate ORM.
 
-    @OneToMany
-    @JoinColumn(name = "userId")
-    private Set<Order> orders;
-  }  
+### Collations
 
-This leads to a foreign key constraint for the definition of Example$Order table:
+By default, TiDB does not support case-insensitive or accent-insensitive collations. All collations TiDB are treated as aliases of the `_bin` collation, unless the [new collation framework](https://docs.pingcap.com/tidb/v5.1/character-set-and-collation#new-framework-for-collations) is enabled.
+
+You can enable the new collation framework ONLY WHEN you initialize a cluster.
+
+### JDBC
+
+Most of the best practices that apply to JDBC can be applied to Hibernate. For more details, see [Best Practices for Developing Java Applications with TiDB](https://docs.pingcap.com/tidb/v5.1/java-app-best-practices).
+
+## Known Limitation
+
+### Limited support for foreign key
+
+Foreign key constraints and cascades updates are not fully supported by TiDB yet. For details, see [Constraints in TiDB](https://docs.pingcap.com/tidb/v5.1/constraints#foreign-key).
+
+Take the previous demo application as an example. Suppose that you define a one-to-many mapping for `Example$User` and `Example$Order`:
+
+```
+@Entity
+public static class User {
+   ...
+
+   @OneToMany
+   @JoinColumn(name = "userId")
+   private Set<Order> orders;
+}
+```
+
+This leads to a foreign key constraint for the definition of `Example$Order` table:
+
+```sql
 CREATE TABLE `Example$Order` (
   `orderId` int(11) NOT NULL AUTO_INCREMENT,
   `price` double NOT NULL,
@@ -351,8 +372,11 @@ CREATE TABLE `Example$Order` (
   PRIMARY KEY (`orderId`) /*T![clustered_index] CLUSTERED */,
   CONSTRAINT `FKq64l0s3am0rlue6gxsxljg056` FOREIGN KEY (`userId`) REFERENCES `Example$User` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=1618271
+```
 
-The definition of FOREIGN KEY is supported by TiDB, but it does not take affect actually, considering the following case:
+The definition of `FOREIGN KEY` is supported by TiDB, but it does not take affect actually. Consider the following cases:
+
+```sql
 tidb> select * from Example$User;
 +--------+--------+------+
 | userId | gender | name |
@@ -363,22 +387,29 @@ tidb> select * from Example$User;
 2 rows in set (0.00 sec)
 
 tidb> select * from Example$Order;                                                                               +---------+-------+--------+
-+---------+-------+--------+ 
++---------+-------+--------+
 | orderId | price | userId |
 +---------+-------+--------+
 |       1 |   500 |      1 |
 |       2 |   200 |      1 |
 |       3 |   300 |      2 |
 +---------+-------+--------+
+```
 
-If you try to delete the row Jack from Example$User table, by either the Hibernate code(delete(session, jack)) or SQL statement(delete from Example$User where userId=2;), an error is expected:
+If you try to delete the `Jack` row from `Example$User` table, using either the Hibernate code (`delete(session, jack)`) or the SQL statement (`delete from Example$User where userId=2;`), you might expect the an error as follows:
+
+```sql
 ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`hibernate_example`.`Example$Order`, CONSTRAINT `FKrd372ndoovvnmduu9iwffri3a` FOREIGN KEY (`orderId`) REFERENCES `Example$User` (`userId`))
+```
 
-However, the error will not be reported by TiDB, since foreign key constraint is ignored.
-To avoid it, you need to maintain the mapping by yourself.
-The support of Foreign Key is on the roadmap of TiDB, you can track issue(#18209) for more progress.
-What's next?
-Read more about using the Hibernate ORM.
-You might also be interested in the following pages:
-- Best Practices for Developing Java Applications with TiDB 
+However, the expected error is NOT reported by TiDB, because the foreign key constraint is ignored.
 
+To avoid this situation, you need to maintain the mapping by yourself.
+
+The support of foreign key is on the roadmap of TiDB. You can track the GitHub issue [#18209](https://github.com/pingcap/tidb/issues/18209) for more progress.
+
+## What's next?
+
+Learn more about using the [Hibernate ORM](http://hibernate.org/orm/).
+
+You might also be interested in [Best Practices for Developing Java Applications with TiDB](https://docs.pingcap.com/tidb/v5.1/java-app-best-practices).
