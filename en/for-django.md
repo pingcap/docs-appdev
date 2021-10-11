@@ -40,7 +40,7 @@ The above command starts a temporary and single-node TiDB cluster with mock TiKV
     CREATE USER <username> WITH PASSWORD <password>;
     ```
 
-    Take note of the username and password. You will use it in your application code later.
+    Take note of the username and password. You will use them in your application code when initializing the project.
 
 3. Grant necessary permissions to the SQL user you have just created:
 
