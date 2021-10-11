@@ -28,7 +28,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 ## Step 2. Create a database
 
-1. Connect to TiDB. Because TiDB is compatible with the MySQL protocol, you can connect to TiDB using any client. The following example uses the MySQL client:
+1. Connect to TiDB. Because TiDB is compatible with the MySQL protocol, you can connect to TiDB using any MySQL client:
 
     ```bash
     mysql -u root -h 127.0.0.1 -P $LOCAL_PORT
@@ -46,7 +46,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     CREATE USER <username> WITH PASSWORD <password>;
     ```
 
-    Take note of the username and password. You will use it in your application code later.
+    Take note of the username and password. You will use them in your application code later.
 
 4. Grant necessary permissions to the SQL user you have just created:
 
