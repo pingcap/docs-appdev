@@ -72,7 +72,7 @@ The above command starts a temporary and single-node TiDB cluster with mock TiKV
     poetry shell
     ```
 
-3. Modify the configuration file in `tidb_example/settings.py` as follows:
+3. Modify the configuration file. The configuration in `tidb_example/settings.py` is as follows.
 
     ```python
     USE_TZ = True
@@ -85,6 +85,25 @@ The above command starts a temporary and single-node TiDB cluster with mock TiKV
     }
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+    ```
+    
+    Modify the configuration above as follows:
+    
+    ```python
+    USE_TZ = False
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_tidb',
+            'NAME': 'django',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
+            'PORT': 4000,
+        },
+    }
+
+    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
     ```
 
 ## Step 3. Write the application logic
