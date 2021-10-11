@@ -87,7 +87,7 @@ The above command starts a temporary and single-node TiDB cluster with mock TiKV
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     ```
     
-    Modify the configuration above as follows:
+    Modify the configuration above as follows. This is used for connection to TiDB.
     
     ```python
     USE_TZ = False
