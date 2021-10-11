@@ -410,6 +410,6 @@ The support of foreign key is on the roadmap of TiDB. You can track the GitHub i
 
 ## What's next?
 
-Learn more about using the [Hibernate ORM](http://hibernate.org/orm/).
+Learn more about how to use the [Hibernate ORM](http://hibernate.org/orm/).
 
 You might also be interested in [Best Practices for Developing Java Applications with TiDB](https://docs.pingcap.com/tidb/v5.1/java-app-best-practices).
