@@ -12,16 +12,16 @@ This tutorial shows you how to build a simple Python application using TiDB and 
 Start a pseudo TiDB cluster on your local storage:
 
 ```bash
-docker run pingcap/tidb:v5.1.0
+docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000 
 ```
 
-The above command starts a temporary and single-node TiDB cluster with mock TiKV. After the cluster is stopped, any changes already made to the database are not persisted.
+The above command starts a temporary and single-node cluster with mock TiKV. The cluster listens on the port `$LOCAL_PORT`. After the cluster is stopped, any changes already made to the database are not persisted.
 
 > **Note:**
 >
 > To deploy a "real" TiDB cluster for production, see the following guides:
 >
-> + [Deploy TiDB using TiUP for On-Premises](https://docs.pingcap.com/tidb/stable/production-deployment-using-tiup)
+> + [Deploy TiDB using TiUP for On-Premises](https://docs.pingcap.com/tidb/v5.1/production-deployment-using-tiup)
 > + [Deploy TiDB on Kubernetes](https://docs.pingcap.com/tidb-in-kubernetes/stable)
 >
 > You can also [use TiDB Cloud](https://pingcap.com/products/tidbcloud/), a fully-managed Database-as-a-Service (DBaaS), which offers free trial.
