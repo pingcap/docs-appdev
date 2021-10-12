@@ -5,7 +5,7 @@ summary: Learn how to build a simple Python application using TiDB and Django.
 
 # App Development for Django
 
-This tutorial shows you how to build a simple Python application using TiDB and Django.
+This tutorial shows you how to build a simple Python application based on TiDB and Django.
 
 ## Step 1. Start a TiDB cluster
 
