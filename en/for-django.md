@@ -5,14 +5,14 @@ summary: Learn how to build a simple Python application using TiDB and Django.
 
 # App Development for Django
 
-This tutorial shows you how to build a simple Python application using TiDB and Django.
+This tutorial shows you how to build a simple Python application based on TiDB and Django.
 
 ## Step 1. Start a TiDB cluster
 
 Start a pseudo TiDB cluster on your local storage:
 
 ```bash
-docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000 
+docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
 ```
 
 The above command starts a temporary and single-node cluster with mock TiKV. The cluster listens on the port `$LOCAL_PORT`. After the cluster is stopped, any changes already made to the database are not persisted.
@@ -86,9 +86,9 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     ```
-    
+
     Modify the configuration above as follows. This is used for connection to TiDB.
-    
+
     ```python
     USE_TZ = False
 

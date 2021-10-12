@@ -5,7 +5,7 @@ summary: Learn how to develop a simple Java application using TiDB and the Hiber
 
 # App Development for Hibernate ORM
 
-This tutorial shows you how to build a simple Java application using TiDB and the Hibernate ORM, the best practices, and the known limitations.
+This tutorial shows you how to build a simple Java application based on TiDB and the Hibernate ORM, the best practices, and the known limitations.
 
 ## Step 1. Start a TiDB cluster
 
