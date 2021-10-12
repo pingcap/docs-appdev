@@ -4,7 +4,7 @@ title: App Development for SQLAlchemy
 
 # App Development for SQLAlchemy
 
-This tutorial shows you how to build a simple Python application using TiDB and SQLAlchemy.
+This tutorial shows you how to build a simple Python application based on TiDB and SQLAlchemy.
 
 ## Step 1. Start a TiDB cluster
 
