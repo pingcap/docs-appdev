@@ -257,7 +257,15 @@ public class Example {
 }
 ```
 
-### Step 1. Update the connection parameters
+### Step 1. Get the application code
+
+To get the `Example.java` code above, clone the `tidb-hibernate-example` repository to your machine:
+
+```shell
+git clone https://github.com/bb7133/tidb-hibernate-example
+```
+
+### Step 2. Update the connection parameters
 
 Edit `src/main/resources/hibernate.properties` in a text editor:
 
@@ -275,7 +283,7 @@ Edit `src/main/resources/hibernate.properties` in a text editor:
 
 3. Set the `hibernate.connection.password` property to the user's password.
 
-### Step 2. Run the application code
+### Step 3. Run the application code
 
 Compile and run the application code using `gradlew` that also downloads the dependencies.
 
