@@ -67,7 +67,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 ## Step 4. Run the application code
 
-The sample application code in this tutorial (`main.py`) uses SQLAlchemy to map Python methods to SQL operations. You can use the example application code on your local machine.
+The sample application code in this tutorial (`main.py`) uses SQLAlchemy to map Python methods to SQL operations. You can save the example application code as a Python file named `main.py` on your local machine.
 
 The code performs the following operations:
 
