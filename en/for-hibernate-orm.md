@@ -56,9 +56,11 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 ## Step 3. Run the Hibernate application
 
-The sample application code in this tutorial (`Example.java`) uses Hibernate to map Java methods to SQL operations. The code performs the following operations that roughly correspond to method calls in the `Example` class:
+The sample application code in this tutorial (`Example.java`) uses Hibernate to map Java methods to SQL operations. You can use the example application code on your local machine.
 
-1. From line 24 to line 105: creates the `Example$User` and `Example$Order` tables in the `hibernate_example` database as specified by the `User` and the `Order` mapping classes. For example, the `User` class corresponds to the creation of a table as follows:
+The code performs the following operations that roughly correspond to method calls in the `Example` class:
+
+1. Creates the `Example$User` and `Example$Order` tables in the `hibernate_example` database as specified by the `User` and the `Order` mapping classes. For example, the `User` class corresponds to the creation of a table as follows:
 
     ```sql
     CREATE TABLE `Example$User` (
@@ -69,10 +71,10 @@ The sample application code in this tutorial (`Example.java`) uses Hibernate to 
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=758190
     ```
 
-2. From line 116 to line 128: inserts demo rows into the table with the constructed `User` instances and `Order` instances.
-3. Line 130: updates the `Example$Order` table by modifying the `Order` instance.
-4. Line 133: removes one row from the `Example$Order` table.
-5. From line 135 to line 140: executes a query which joins the `Example$User` table and the `Example$Order` table and gets the name of the user whose total order price is greater than `500`.
+2. Inserts demo rows into the table with the constructed `User` instances and `Order` instances.
+3. Updates the `Example$Order` table by modifying the `Order` instance.
+4. Removes one row from the `Example$Order` table.
+5. Executes a query which joins the `Example$User` table and the `Example$Order` table and gets the name of the user whose total order price is greater than `500`.
 
 The contents of `Example.java`:
 
@@ -255,15 +257,7 @@ public class Example {
 }
 ```
 
-### Step 1. Get the application code
-
-To get the `Example.java` code above, clone the `tidb-hibernate-example` repository to your machine:
-
-```shell
-git clone https://github.com/bb7133/tidb-hibernate-example
-```
-
-### Step 2. Update the connection parameters
+### Step 1. Update the connection parameters
 
 Edit `src/main/resources/hibernate.properties` in a text editor:
 
@@ -281,7 +275,7 @@ Edit `src/main/resources/hibernate.properties` in a text editor:
 
 3. Set the `hibernate.connection.password` property to the user's password.
 
-### Step 3. Run the application code
+### Step 2. Run the application code
 
 Compile and run the application code using `gradlew` that also downloads the dependencies.
 
