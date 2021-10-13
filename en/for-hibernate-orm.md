@@ -291,7 +291,7 @@ Compile and run the application code using `gradlew` that also downloads the dep
 ./gradlew run
 ```
 
-At the end of the output, you should see:
+At the end of the output, you are expected see:
 
 ```
 User name: Jack
