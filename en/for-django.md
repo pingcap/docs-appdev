@@ -5,7 +5,7 @@ summary: Learn how to build a simple Python application using TiDB and Django.
 
 # App Development for Django
 
-This tutorial shows you how to build a simple Python application based on TiDB and Django.
+This tutorial shows you how to build a simple Python application based on TiDB and Django. The sample application to build here is a simple CRM tool where you can add, query, and update customer and order information.
 
 ## Step 1. Start a TiDB cluster
 
@@ -107,6 +107,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     ```
 
 ## Step 3. Write the application logic
+
+After you have configured the application's database connection, you can start building out the application. To write the application logic, you need to build the models, build the controller, and define the URL routes.
 
 1. Build models that are defined in a file called `models.py`. You can copy the sample code below and paste it into a new file.
 
