@@ -175,7 +175,7 @@ db, err := sql.Open("mysql", "{user}:{password}@{globalhost}:26257/go_mysql?char
     go run main.go
     ```
 
-    The output should be as follows:
+    The expected output is as follows:
 
     ```
     2 2 122.00

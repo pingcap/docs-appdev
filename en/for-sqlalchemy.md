@@ -196,7 +196,7 @@ After the connection string is correctly set, run the application code:
 python3 main.py
 ```
 
-The output should be as follows:
+The expected output is as follows:
 
 ```
 [('Ben', 212.5), ('Ben', 8.5)]
