@@ -4,7 +4,7 @@ title: App Development for SQLAlchemy
 
 # App Development for SQLAlchemy
 
-This tutorial shows you how to build a simple Python application based on TiDB and SQLAlchemy.
+This tutorial shows you how to build a simple Python application based on TiDB and SQLAlchemy. The sample application to build here is a simple CRM tool where you can add, query, and update customer and order information.
 
 ## Step 1. Start a TiDB cluster
 
