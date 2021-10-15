@@ -54,7 +54,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     GRANT ALL ON DATABASE bank TO <username>;
     ```
 
-## Step 3. Run the Hibernate application
+## Step 3. Get and run the application code
 
 The sample application code in this tutorial (`Example.java`) uses Hibernate to map Java methods to SQL operations. You can use the example application code on your local machine.
 
@@ -261,7 +261,7 @@ public class Example {
 
 To get the `Example.java` code above, clone the `tidb-hibernate-example` repository to your machine:
 
-```shell
+```bash
 git clone https://github.com/bb7133/tidb-hibernate-example
 ```
 
@@ -287,7 +287,7 @@ Edit `src/main/resources/hibernate.properties` in a text editor:
 
 Compile and run the application code using `gradlew` that also downloads the dependencies.
 
-```shell
+```bash
 ./gradlew run
 ```
 

@@ -1,5 +1,6 @@
 ---
 title: App Development for go-sql-driver/mysql
+summary: Learn how to build a simple Golang application based on TiDB and go-sql-driver/mysql.
 ---
 
 # App Development for go-sql-driver/mysql
@@ -47,7 +48,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     GRANT ALL ON DATABASE go_mysql TO <username>;
     ```
 
-## Step 3. Run the application code
+## Step 3. Get and run the application code
 
 The sample application code in this tutorial (`main.go`) uses go-sql-driver/mysql to map Golang methods to SQL operations that are described in the code comments. You can save the example application code as a Golang file named `main.go` on your local machine.
 

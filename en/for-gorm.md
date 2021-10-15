@@ -1,5 +1,6 @@
 ---
 title: App Development for GORM
+summary: Learn how to build a simple Python application based on TiDB and GORM.
 ---
 
 # App Development for GORM
@@ -47,7 +48,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     GRANT ALL ON DATABASE gorm TO <username>;
     ```
 
-## Step 3. Run the application code
+## Step 3. Get and run the application code
 
 The sample application code in this tutorial (`main.go`) uses GORM to map Golang methods to SQL operations that are described in the code comments. You can save the example application code as a Golang file named `main.go` on your local machine.
 
@@ -155,13 +156,13 @@ func main() {
 
 ### Step 1. Update the connection parameters and connect to TiDB
 
-In the `main.go` file above, replace the string passed to `sql.Open()` with the connection string you have obtained when creating the database. The `sql.Open()` function call should look similar to the following one:
+In the `main.go` file above, replace the string passed to `sql.Open()` with the connection string you have obtained when creating the database. The `sql.Open()` function call is expected to look similar to the following one:
 
 ```go
 dsn := "root:@tcp(localhost:4000)/gorm?charset=utf8&parseTime=True&loc=Local"
 ```
 
-### Step 2. Run the application code
+### Step 2. Run the code
 
 1. Initialize the GORM module:
 
