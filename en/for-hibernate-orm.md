@@ -261,7 +261,7 @@ public class Example {
 
 To get the `Example.java` code above, clone the `tidb-hibernate-example` repository to your machine:
 
-```shell
+```bash
 git clone https://github.com/bb7133/tidb-hibernate-example
 ```
 
@@ -287,7 +287,7 @@ Edit `src/main/resources/hibernate.properties` in a text editor:
 
 Compile and run the application code using `gradlew` that also downloads the dependencies.
 
-```shell
+```bash
 ./gradlew run
 ```
 
