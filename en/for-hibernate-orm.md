@@ -54,7 +54,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     GRANT ALL ON DATABASE bank TO <username>;
     ```
 
-## Step 3. Run the Hibernate application
+## Step 3. Get and run the application code
 
 The sample application code in this tutorial (`Example.java`) uses Hibernate to map Java methods to SQL operations. You can use the example application code on your local machine.
 

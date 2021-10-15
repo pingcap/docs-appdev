@@ -1,5 +1,6 @@
 ---
 title: App Development for SQLAlchemy
+summary: Learn how to build a simple Python application based on TiDB and SQLAlchemy.
 ---
 
 # App Development for SQLAlchemy
@@ -65,7 +66,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     poetry add git+https://github.com/pingcap/sqlalchemy-tidb.git#main
     ```
 
-## Step 4. Run the application code
+## Step 4. Get and run the application code
 
 The sample application code in this tutorial (`main.py`) uses SQLAlchemy to map Python methods to SQL operations. You can save the example application code as a Python file named `main.py` on your local machine.
 
