@@ -15,7 +15,7 @@ Before submitting your question, make sure you have:
 - Googled your question.
 - Searched the open and closed [GitHub issues](https://github.com/pingcap/docs/issues?utf8=%E2%9C%93&q=is%3Aissue).
 - Read the documentation:
-  - [docs](https://github.com/pingcap/docs)
-  - [docs-cn](https://github.com/pingcap/docs-cn)
+  - [TiDB App Dev Guide (en)](https://docs.pingcap.com/developers/dev)
+  - [TiDB App Dev Guide (zh)](https://docs.pingcap.com/zh/developers/dev)
 
 Now, please describe your question here:
