@@ -140,7 +140,7 @@ mycursor.close()
 mydb.close()
 ```
 
-## Step 1. Update the connection parameters and connect to TiDB
+### Step 1. Update the connection parameters and connect to TiDB
 
 Replace the string passed to `mysql.connector.connect()` with the connection string you have obtained when creating the database.
 
@@ -154,7 +154,7 @@ mydb = mysql.connector.connect(
 )
 ```
 
-## Step 2. Run the application code
+### Step 2. Run the application code
 
 Run the following command to run the `main.py` code:
 
