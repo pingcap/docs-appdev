@@ -11,3 +11,4 @@
     - [For go-sql-driver/mysql](for-go-sql-driver-mysql.md)
     - [For GORM](for-gorm.md)
     - [For mysql-connector-python](for-python-mysql-connector.md)
+    - [For Laravel](for-laravel.md)
