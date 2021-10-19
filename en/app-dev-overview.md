@@ -4,9 +4,9 @@ title: App Development Overview
 
 # App Development Overview
 
-TiDB supports the MySQL protocol and most of the MySQL features. In general, to develop your application based on TiDB, you can use either native driver/connectors or popular third-party frameworks like ORM and migration tools.
+TiDB supports the MySQL protocol and most of the MySQL features. In general, to develop your application based on TiDB, you  can use either native driver/connectors or popular third-party frameworks like ORM and migration tools.
 
-This document lists some of the app development guides that show you how to build simple applications based on TiDB.
+The examples in this section show you how to build simple applications using TiDB.
 
 ## Connectors
 
