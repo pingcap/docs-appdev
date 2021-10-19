@@ -10,8 +10,8 @@ The examples in this section show you how to build simple applications using TiD
 
 ## Connectors
 
-<table>
-  <tr >
+<table width="100%">
+  <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Go</th>
   </tr>
   <tr>
@@ -28,7 +28,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Java</th>
   </tr>
@@ -46,7 +46,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Python</th>
   </tr>
@@ -64,7 +64,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Ruby</th>
   </tr>
@@ -82,7 +82,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">PHP</th>
   </tr>
@@ -102,8 +102,8 @@ The examples in this section show you how to build simple applications using TiD
 
 ## ORM frameworks
 
-<table>
-  <tr >
+<table width="100%">
+  <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Go</th>
   </tr>
   <tr>
@@ -120,7 +120,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Java</th>
   </tr>
@@ -138,7 +138,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Python</th>
   </tr>
@@ -162,7 +162,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Ruby</th>
   </tr>
@@ -180,7 +180,7 @@ The examples in this section show you how to build simple applications using TiD
   </tr>
 </table>
 
-<table>
+<table width="100%">
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">PHP</th>
   </tr>
