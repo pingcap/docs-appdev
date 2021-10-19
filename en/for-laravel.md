@@ -356,15 +356,13 @@ php artisan serve
 To test the application by inserting some example data, run the following commands:
 
 ```bash
-curl --request POST '127.0.0.1:8000/api/order/' \
---data-raw '{
-    "uid": 1,
-    "price": 3.12
-}'
+curl --location --request POST 'http://127.0.0.1:8000/api/customer' --form 'name="Peter"'
 
-curl --request PATCH '127.0.0.1:8000/api/order/' --data-raw '{ "oid": 1, "price": 312 }'
+curl --location --request POST 'http://127.0.0.1:8000/api/order' --form 'cid=1' --form 'price="3.12"'
 
-curl  --request GET '127.0.0.1:8000/api/order/' --data-raw '{ "oid": 1 }'
+curl --location --request POST 'http://127.0.0.1:8000/api/order/1' --form 'price="312"'
+
+curl --location --request GET 'http://127.0.0.1:8000/api/order?cid=1'
 ```
 
 To verify whether the insertion is successful, execute the following statement in the SQL shell:
