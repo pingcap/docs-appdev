@@ -63,7 +63,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     ```bash
     mkdir tidb_example
     cd tidb_example
-    poetry init --no-interaction --dependency mysql-connector
+    poetry init --no-interaction --dependency mysql-connector-python
     ```
 
 ## Step 4. Get and run the application code
