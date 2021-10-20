@@ -99,8 +99,8 @@ This document lists some of the app development guides that show you how to buil
     <th>Example</th>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td><a href="https://github.com/brianmario/mysql2">Mysql2</a></td>
+    <td>0.5.3</td>
     <td>Full</td>
     <td>NA</td>
   </tr>
@@ -121,8 +121,8 @@ This document lists some of the app development guides that show you how to buil
     <th>Example</th>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td><a href="https://www.php.net/manual/en/ref.pdo-mysql.php">PDO_MYSQL</a></td>
+    <td>All</td>
     <td>Full</td>
     <td>NA</td>
   </tr>
@@ -218,9 +218,9 @@ This document lists some of the app development guides that show you how to buil
   </tr>
   <tr>
     <td>ActiveRecord</td>
-    <td></td>
-    <td>Full</td>
-    <td>NA</td>
+    <td>6.1</td>
+    <td>Verified</td>
+    <td><a href="https://pingcap.com/blog/build-a-ruby-on-rails-app-with-tidb">Power Up Your Rails Apps with a NewSQL Database</a></td>
   </tr>
 </table>
 
