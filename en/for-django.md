@@ -11,6 +11,8 @@ This tutorial shows you how to build a simple Python application based on TiDB a
 
 Start a pseudo TiDB cluster on your local storage:
 
+{{< copyable "" >}}
+
 ```bash
 docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
 ```
@@ -30,11 +32,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 1. In the SQL shell, create the `django` database that your application will use:
 
+    {{< copyable "sql" >}}
+
     ```sql
     CREATE DATABASE django;
     ```
 
 2. Create a SQL user for your application:
+
+    {{< copyable "sql" >}}
 
     ```sql
     CREATE USER <username> WITH PASSWORD <password>;
@@ -43,6 +49,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     Take note of the username and password. You will use them in your application code when initializing the project.
 
 3. Grant necessary permissions to the SQL user you have just created:
+
+    {{< copyable "sql" >}}
 
     ```sql
     GRANT ALL ON DATABASE django TO <username>;
@@ -54,11 +62,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
     Poetry can isolate system dependencies from other dependencies and avoid dependency pollution. Use the following command to install Poetry.
 
+    {{< copyable "" >}}
+
     ```bash
     pip install --user poetry
     ```
 
 2. Initialize the development environment using Poetry:
+
+    {{< copyable "" >}}
 
     ```bash
     poetry run django-admin startproject tidb_example
@@ -74,6 +86,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 3. Modify the configuration file. The configuration in `tidb_example/settings.py` is as follows.
 
+    {{< copyable "" >}}
+
     ```python
     USE_TZ = True
 
@@ -88,6 +102,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     ```
 
     Modify the configuration above as follows. This is used for connection to TiDB.
+
+    {{< copyable "" >}}
 
     ```python
     USE_TZ = False
@@ -112,6 +128,8 @@ After you have configured the application's database connection, you can start b
 
 1. Build models that are defined in a file called `models.py`. You can copy the sample code below and paste it into a new file.
 
+    {{< copyable "" >}}
+
     ```python
     from django.db import models
 
@@ -122,6 +140,8 @@ After you have configured the application's database connection, you can start b
     ```
 
 2. Build class-based views in a file called `views.py`. You can copy the sample code below and paste it into a new file.
+
+    {{< copyable "" >}}
 
     ```python
     from django.http import JsonResponse, HttpResponse
@@ -185,6 +205,8 @@ After you have configured the application's database connection, you can start b
 
 3. Define URL routes in a file called `urls.py`. The `django-admin` command-line tool has generated this file when you create the Django project, so the file should already exist in `tidb_example/tidb_example`. You can copy the sample code below and paste it into the existing `urls.py` file.
 
+    {{< copyable "" >}}
+
     ```python
     from django.contrib import admin
     from django.urls import path
@@ -206,6 +228,8 @@ After you have configured the application's database connection, you can start b
 
 In the top `tidb_example` directory, use the [`manage.py`](https://docs.djangoproject.com/en/3.1/ref/django-admin/) script to create [Django migrations](https://docs.djangoproject.com/en/3.1/topics/migrations/) that initialize the database for the application:
 
+{{< copyable "" >}}
+
 ```bash
 python manage.py makemigrations tidb_example
 python manage.py migrate tidb_example
@@ -214,11 +238,15 @@ python manage.py migrate
 
 Then start the application:
 
+{{< copyable "" >}}
+
 ```python
 python3 manage.py runserver 0.0.0.0:8000
 ```
 
 To test the application by inserting some example data, run the following commands:
+
+{{< copyable "" >}}
 
 ```bash
 curl --request POST '127.0.0.1:8000/order/' \
@@ -234,6 +262,8 @@ curl  --request GET '127.0.0.1:8000/order/' --data-raw '{ "oid": 1 }'
 
 To verify whether the data insertion is successful, open the terminal with the SQL shell to check:
 
+{{< copyable "" >}}
+
 ```sql
 MySQL root@127.0.0.1:(none)> select * from django.tidb_example_orders;
 +-----+-----+-------+
@@ -246,6 +276,8 @@ Time: 0.008s
 ```
 
 The result above shows that the data insertion is successful. Then you can delete the inserted data:
+
+{{< copyable "" >}}
 
 ```bash
 curl  --request DELETE '127.0.0.1:8000/order/' --data-raw '{ "oid": 1 }'

@@ -11,6 +11,8 @@ This tutorial shows you how to build a simple Python application based on TiDB a
 
 Start a pseudo TiDB cluster on your local storage:
 
+{{< copyable "" >}}
+
 ```bash
 docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
 ```
@@ -30,11 +32,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 1. In the SQL shell, create the `tidb_example` database that your application will use:
 
+    {{< copyable "" >}}
+
     ```sql
     CREATE DATABASE tidb_example;
     ```
 
 2. Create a SQL user for your application:
+
+    {{< copyable "" >}}
 
     ```sql
     CREATE USER <username> WITH PASSWORD <password>;
@@ -43,6 +49,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     Take note of the username and password. You will use them in your application code when initializing the project.
 
 3. Grant necessary permissions to the SQL user you have just created:
+
+    {{< copyable "" >}}
 
     ```sql
     GRANT ALL ON DATABASE tidb_example TO <username>;
@@ -54,11 +62,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
     Poetry can isolate system dependencies from other dependencies and avoid dependency pollution. Use the following command to install Poetry.
 
+    {{< copyable "" >}}
+
     ```bash
     pip install --user poetry
     ```
 
 2. Initialize the development environment using Poetry:
+
+    {{< copyable "" >}}
 
     ```bash
     mkdir tidb_example
@@ -69,6 +81,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 ## Step 4. Get and run the application code
 
 The sample application code in this tutorial (`main.py`) uses mysql-connector-python to map Python methods to SQL operations that are described in the code comments. You can save the example application code as a Python file named `main.py` on your local machine.
+
+{{< copyable "" >}}
 
 ```python
 import mysql.connector
@@ -144,6 +158,8 @@ mydb.close()
 
 Replace the string passed to `mysql.connector.connect()` with the connection string you have obtained when creating the database.
 
+{{< copyable "" >}}
+
 ```python
 mydb = mysql.connector.connect(
   host="localhost",
@@ -157,6 +173,8 @@ mydb = mysql.connector.connect(
 ### Step 2. Run the application code
 
 Run the following command to run the `main.py` code:
+
+{{< copyable "" >}}
 
 ```python
 python3 main.py

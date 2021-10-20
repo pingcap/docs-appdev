@@ -11,6 +11,8 @@ This tutorial shows you how to build a simple PHP application based on TiDB with
 
 Start a pseudo TiDB cluster on your local storage:
 
+{{< copyable "" >}}
+
 ```bash
 docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
 ```
@@ -30,11 +32,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 1. In the SQL shell, create the `laravel_demo` database that your application will use:
 
+    {{< copyable "" >}}
+
     ```sql
     CREATE DATABASE laravel_demo;
     ```
 
 2. Create a SQL user for your application:
+
+    {{< copyable "" >}}
 
     ```sql
     CREATE USER <username> WITH PASSWORD <password>;
@@ -43,6 +49,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     Take note of the username and password. You will use them in your application code when initializing the project.
 
 3. Grant necessary permissions to the SQL user you have just created:
+
+    {{< copyable "" >}}
 
     ```sql
     GRANT ALL ON DATABASE laravel_demo TO <username>;
@@ -53,6 +61,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 1. Install Composer.
 
     Laravel uses [Composer](https://getcomposer.org/), a dependency manager for PHP, to manage its dependencies. Before using Laravel, make sure you have Composer installed on your machine:
+
+    {{< copyable "" >}}
 
     ```bash
     brew install composer
@@ -66,6 +76,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
     Download the Laravel installer and install the Laravel framework using Composer:
 
+    {{< copyable "" >}}
+
     ```bash
     composer global require laravel/installer
     ```
@@ -74,6 +86,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
     Now that you have Laravel installed, you can start a project using the following command:
 
+    {{< copyable "" >}}
+
     ```bash
     laravel new laravel-demo
     ```
@@ -81,6 +95,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 4. Edit the configuration.
 
     After creating your Laravel project, you need to edit the configuration file for the application to connect to TiDB:
+
+    {{< copyable "" >}}
 
     ```
     DB_CONNECTION=mysql
@@ -101,6 +117,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
 
 1. Use the `make:model` [Artisan command](https://laravel.com/docs/8.x/artisan) to generate a new model and generate a [database migration](https://laravel.com/docs/8.x/migrations):
 
+    {{< copyable "" >}}
+
     ```bash
     php artisan make:model Order -m
     php artisan make:model Customer -m
@@ -109,6 +127,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
     The new migration will be placed in your `database/migrations` directory.
 
 2. Edit the `database/migrations/2021_10_08_064043_order.php` file to create the order table. File names will change over time.
+
+    {{< copyable "" >}}
 
     ```php
     <?php
@@ -147,6 +167,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
 
 3. Edit the `database/migrations/2021_10_08_064056_customer.php` file to create the customer table. File names will change over time.
 
+    {{< copyable "" >}}
+
     ```php
     <?php
 
@@ -183,6 +205,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
 
 4. Use the `migrate` [Artisan command](https://laravel.com/docs/8.x/artisan) to generate tables.
 
+    {{< copyable "" >}}
+
     ```php
     > $ php artisan migrate
     Migration table created successfully.
@@ -201,6 +225,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
     ```
 
 5. Edit the `app/Models/Order.php` file to tell the framework which table to use for the `Order` model:
+
+    {{< copyable "" >}}
 
     ```php
     <?php
@@ -237,6 +263,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
     ```
 
 6. Edit the `app/Models/Customer.php` file to tell the framework which table to use for our `customer` model:
+
+    {{< copyable "" >}}
 
     ```php
     <?php
@@ -275,12 +303,16 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
 
 1. To create the [controller](https://laravel.com/docs/8.x/controllers) via the command line, run the following commands:
 
+    {{< copyable "" >}}
+
     ```bash
     php artisan controller:make CustomerController
     php artisan controller:make OrderController
     ```
 
 2. Edit `app/Http/Controllers/CustomerController.php` to control the action against the `customer` table.
+
+    {{< copyable "" >}}
 
     ```php
     <?php
@@ -312,6 +344,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
 ### Update the URL routes
 
 URL routing allows you to configure an application to accept request URLs. Most of the [routes](https://laravel.com/docs/8.x/routing) for your application is defined in the `app/api.php` file. The simplest Laravel routes consist of a URI and a Closure callback. The `api.php` file contains all of the code for this demo.
+
+{{< copyable "" >}}
 
 ```php
 <?php
@@ -349,11 +383,15 @@ Route::get('/order','App\Http\Controllers\OrderController@queryByCid');
 
 If you have PHP installed locally and you would like to use PHP's built-in development server to serve your application, you can use the serve Artisan command to start a development server at `http://localhost:8000`:
 
+{{< copyable "" >}}
+
 ```bash
 php artisan serve
 ```
 
 To test the application by inserting some example data, run the following commands:
+
+{{< copyable "" >}}
 
 ```bash
 curl --location --request POST 'http://127.0.0.1:8000/api/customer' --form 'name="Peter"'
@@ -366,6 +404,8 @@ curl --location --request GET 'http://127.0.0.1:8000/api/order?cid=1'
 ```
 
 To verify whether the insertion is successful, execute the following statement in the SQL shell:
+
+{{< copyable "" >}}
 
 ```sql
 MySQL root@127.0.0.1:(none)> select * from laravel_demo.order;

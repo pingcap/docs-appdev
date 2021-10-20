@@ -1,16 +1,28 @@
 ---
 title: App Development Overview
+summary: Learn the overview of App development.
 ---
 
 # App Development Overview
 
-TiDB supports the MySQL protocol and most of the MySQL features. In general, to develop your application based on TiDB, you  can use either native driver/connectors or popular third-party frameworks like ORM and migration tools.
+TiDB supports the MySQL protocol and most of the MySQL features. In general, to develop your application based on TiDB, you can use either native driver/connectors or popular third-party frameworks like ORM and migration tools.
 
 This document lists some of the app development guides that show you how to build simple applications based on TiDB.
 
+> **Note:**
+>
+> The support levels for connectors and ORM frameworks are described as follows:
+>
+> - Full support: There is no known issue using the driver or connector with TiDB.
+> - Verified support: You might encounter errors when using some of the features, due to "unsupported features" of TiDB. For example, TiDB does not support Foreign Key constraints, so the foreign key related features do not work in Hibernate. However, all other features have been verified.
+
 ## Connectors
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Go</th>
   </tr>
@@ -28,7 +40,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Java</th>
   </tr>
@@ -46,7 +62,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Python</th>
   </tr>
@@ -64,7 +84,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Ruby</th>
   </tr>
@@ -82,7 +106,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">PHP</th>
   </tr>
@@ -102,7 +130,11 @@ This document lists some of the app development guides that show you how to buil
 
 ## ORM frameworks
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Go</th>
   </tr>
@@ -120,7 +152,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Java</th>
   </tr>
@@ -138,7 +174,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Python</th>
   </tr>
@@ -162,7 +202,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">Ruby</th>
   </tr>
@@ -180,7 +224,11 @@ This document lists some of the app development guides that show you how to buil
   </tr>
 </table>
 
-<table width="100%">
+<table style="display: table; width: 100%;">
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
+  <col width="25%" />
   <tr>
     <th colspan="4" bgcolor="#d9d9d9" align="center">PHP</th>
   </tr>
