@@ -122,7 +122,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
     ```
 
-## Step 3. Write the application logic
+## Step 4. Write the application logic
 
 After you have configured the application's database connection, you can start building out the application. To write the application logic, you need to build the models, build the controller, and define the URL routes.
 
@@ -224,7 +224,7 @@ After you have configured the application's database connection, you can start b
     ]
     ```
 
-## Step 4. Set up and run the Django application
+## Step 5. Set up and run the Django application
 
 In the top `tidb_example` directory, use the [`manage.py`](https://docs.djangoproject.com/en/3.1/ref/django-admin/) script to create [Django migrations](https://docs.djangoproject.com/en/3.1/topics/migrations/) that initialize the database for the application:
 
