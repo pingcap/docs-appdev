@@ -11,6 +11,8 @@ This tutorial shows you how to build a simple Python application based on TiDB a
 
 Start a pseudo TiDB cluster on your local storage:
 
+{{< copyable "" >}}
+
 ```bash
 docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
 ```
@@ -30,11 +32,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 1. In the SQL shell, create the `test_sqlalchemy` database that your application will use:
 
+    {{< copyable "" >}}
+
     ```sql
     CREATE DATABASE test_sqlalchemy;
     ```
 
 2. Create a SQL user for your application:
+
+    {{< copyable "" >}}
 
     ```sql
     CREATE USER <username> WITH PASSWORD <password>;
@@ -43,6 +49,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     Take note of the username and password. You will use them in your application code when initializing the project.
 
 3. Grant necessary permissions to the SQL user you have just created:
+
+    {{< copyable "" >}}
 
     ```sql
     GRANT ALL ON DATABASE test_sqlalchemy TO <username>;
@@ -54,11 +62,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
     Poetry can isolate system dependencies from other dependencies and avoid dependency pollution. Use the following command to install Poetry.
 
+    {{< copyable "" >}}
+
     ```bash
     pip install --user poetry
     ```
 
 2. Initialize the development environment using Poetry:
+
+    {{< copyable "" >}}
 
     ```bash
     poetry init --no-interaction --dependency sqlalchemy
@@ -78,6 +90,8 @@ The code performs the following operations:
 4. Updates `orders` by `oid`.
 5. Joins the `users` and `orders` tables.
 6. Queries the `users` and `orders` tables using the same `uid`.
+
+{{< copyable "" >}}
 
 ```python
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, create_engine, Enum
@@ -175,6 +189,8 @@ print(
 
 In the `main.py` file above, replace the string passed to `create_engine()` with the connection string you have obtained when creating the database.
 
+{{< copyable "" >}}
+
 ```python
 engine = create_engine(
     'tidb://{username}:{password}@{hostname}:{port}/test_sqlalchemy?charset=utf8mb4',
@@ -182,6 +198,8 @@ engine = create_engine(
 ```
 
 By default, you can set the string as follows:
+
+{{< copyable "" >}}
 
 ```python
 engine = create_engine(
@@ -192,6 +210,8 @@ engine = create_engine(
 ### Step 2. Run the application code
 
 After the connection string is correctly set, run the application code:
+
+{{< copyable "" >}}
 
 ```bash
 python3 main.py

@@ -11,6 +11,8 @@ This tutorial shows you how to build a simple Java application based on TiDB and
 
 Start a pseudo TiDB cluster on your local storage:
 
+{{< copyable "" >}}
+
 ```bash
 docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
 ```
@@ -30,17 +32,23 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 1. Connect to TiDB. Because TiDB is compatible with the MySQL protocol, you can connect to TiDB using any MySQL client:
 
+    {{< copyable "" >}}
+
     ```bash
     mysql -u root -h 127.0.0.1 -P $LOCAL_PORT
     ```
 
 2. In the SQL shell, create the `bank` database that your application will use:
 
+    {{< copyable "" >}}
+
     ```sql
     CREATE DATABASE bank;
     ```
 
 3. Create a SQL user for your application:
+
+    {{< copyable "" >}}
 
     ```sql
     CREATE USER <username> WITH PASSWORD <password>;
@@ -49,6 +57,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     Take note of the username and password. You will use them in your application code later.
 
 4. Grant necessary permissions to the SQL user you have just created:
+
+    {{< copyable "" >}}
 
     ```sql
     GRANT ALL ON DATABASE bank TO <username>;
@@ -61,6 +71,8 @@ The sample application code in this tutorial (`Example.java`) uses Hibernate to 
 The code performs the following operations that roughly correspond to method calls in the `Example` class:
 
 1. Creates the `Example$User` and `Example$Order` tables in the `hibernate_example` database as specified by the `User` and the `Order` mapping classes. For example, the `User` class corresponds to the creation of a table as follows:
+
+    {{< copyable "" >}}
 
     ```sql
     CREATE TABLE `Example$User` (
@@ -77,6 +89,8 @@ The code performs the following operations that roughly correspond to method cal
 5. Executes a query which joins the `Example$User` table and the `Example$Order` table and gets the name of the user whose total order price is greater than `500`.
 
 The contents of `Example.java`:
+
+{{< copyable "" >}}
 
 ```java
 package com.pingcap;
@@ -261,6 +275,8 @@ public class Example {
 
 To get the `Example.java` code above, clone the `tidb-hibernate-example` repository to your machine:
 
+{{< copyable "" >}}
+
 ```bash
 git clone https://github.com/bb7133/tidb-hibernate-example
 ```
@@ -270,6 +286,8 @@ git clone https://github.com/bb7133/tidb-hibernate-example
 Edit `src/main/resources/hibernate.properties` in a text editor:
 
 1. Modify the `hibernate.connection.url` property with the port number from the `hibernate.properties` configuration file:
+
+    {{< copyable "" >}}
 
     ```
     hibernate.connection.url jdbc:mysql://127.0.0.1:4000/hibernate_example
@@ -287,6 +305,8 @@ Edit `src/main/resources/hibernate.properties` in a text editor:
 
 Compile and run the application code using `gradlew` that also downloads the dependencies.
 
+{{< copyable "" >}}
+
 ```bash
 ./gradlew run
 ```
@@ -298,6 +318,8 @@ User name: Jack
 ```
 
 To verify whether the results have been updated successfully in the database, execute the following statement in the MySQL client:
+
+{{< copyable "" >}}
 
 ```sql
 > SELECT * FROM ;
@@ -365,6 +387,8 @@ public static class User {
 ```
 
 This leads to a foreign key constraint for the definition of `Example$Order` table:
+
+{{< copyable "" >}}
 
 ```sql
 CREATE TABLE `Example$Order` (

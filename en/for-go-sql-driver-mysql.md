@@ -11,6 +11,8 @@ This tutorial shows you how to build a simple Golang application based on TiDB a
 
 Start a pseudo TiDB cluster on your local storage:
 
+{{< copyable "" >}}
+
 ```bash
 docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
 ```
@@ -30,11 +32,15 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 1. In the SQL shell, create the `go_mysql` database that your application will use:
 
+    {{< copyable "" >}}
+
     ```sql
     CREATE DATABASE django;
     ```
 
 2. Create a SQL user for your application:
+
+    {{< copyable "" >}}
 
     ```sql
     CREATE USER <username> WITH PASSWORD <password>;
@@ -44,6 +50,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 
 3. Grant necessary permissions to the SQL user you have just created:
 
+    {{< copyable "" >}}
+
     ```sql
     GRANT ALL ON DATABASE go_mysql TO <username>;
     ```
@@ -51,6 +59,8 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 ## Step 3. Get and run the application code
 
 The sample application code in this tutorial (`main.go`) uses go-sql-driver/mysql to map Golang methods to SQL operations that are described in the code comments. You can save the example application code as a Golang file named `main.go` on your local machine.
+
+{{< copyable "" >}}
 
 ```go
 package main
@@ -158,6 +168,8 @@ func main() {
 
 In the `main.go` file above, replace the string passed to `sql.Open()` with the connection string you have obtained when creating the database. The `sql.Open()` function call should look similar to the following one:
 
+{{< copyable "" >}}
+
 ```go
 db, err := sql.Open("mysql", "{user}:{password}@{globalhost}:26257/go_mysql?charset=utf8mb4")
 ```
@@ -166,11 +178,15 @@ db, err := sql.Open("mysql", "{user}:{password}@{globalhost}:26257/go_mysql?char
 
 1. Initialize the go-sql-driver/mysql module:
 
+    {{< copyable "" >}}
+
     ```bash
      go mod init mysql-driver-demo
     ```
 
 2. Run the `main.go` code:
+
+    {{< copyable "" >}}
 
     ```bash
     go run main.go
