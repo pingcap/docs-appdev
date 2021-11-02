@@ -69,7 +69,7 @@ summary: 为开发者提供 TiDB 中文版开发指南。
 - [事务限制](tidb-database-development-specification/transaction-restraints.md)
 - [隐式类型转换](tidb-database-development-specification/implicit-type-conversion.md)
 - [结果集不稳定](tidb-database-development-specification/unstable-result-set.md)
-- [索引的使用注意](tidb-database-development-specification/notes-on-indexes.md**)
+- [索引的使用注意](tidb-database-development-specification/notes-on-indexes.md)
 - [自增列的使用注意](tidb-database-development-specification/notes-on-auto-increment-columns.md)
 - [TiDB 中的各种超时](tidb-database-development-specification/timeouts-in-tidb.md)
 - [JDBC 最佳实践](tidb-database-development-specification/jdbc-best-practices.md)
