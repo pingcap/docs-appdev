@@ -21,4 +21,3 @@
   - [ページングのベストプラクティス](tidb-database-development-specification/best-practices-for-paging.md)
   - [固有のシーケンス番号生成方法](tidb-database-development-specification/unique-serial-number-generation-scheme.md)
   - [プロセス規則](tidb-database-development-specification/process-specification.md)
-
