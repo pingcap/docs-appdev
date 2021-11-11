@@ -51,7 +51,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     {{< copyable "" >}}
 
     ```sql
-    CREATE USER <username> WITH PASSWORD <password>;
+    CREATE USER <username> IDENTIFIED BY <password>;
     ```
 
     Take note of the username and password. You will use them in your application code later.
@@ -61,7 +61,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     {{< copyable "" >}}
 
     ```sql
-    GRANT ALL ON DATABASE bank TO <username>;
+    GRANT ALL ON bank.* TO <username>;
     ```
 
 ## Step 3. Get and run the application code
