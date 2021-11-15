@@ -1,7 +1,0 @@
-## 十七、附录
-
-1）Tidb的Database Limit https://docs.pingcap.com/zh/tidb/stable/tidb-limitations
-
-2）Tidb的关键字和保留字列表 https://docs.pingcap.com/zh/tidb/stable/keywords 
-
-3）与 MySQL 兼容性对比 (https://docs.pingcap.com/zh/tidb/stable/mysql-compatibility) 中不支持的功能特性,以及与 MySQL 有差异的特性详细说明
