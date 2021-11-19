@@ -14,7 +14,7 @@ Start a pseudo TiDB cluster on your local storage:
 {{< copyable "" >}}
 
 ```bash
-docker run pingcap/tidb:v5.1.0 -p 127.0.0.1:$LOCAL_PORT:4000
+docker run -p 127.0.0.1:$LOCAL_PORT:4000 pingcap/tidb:v5.1.0
 ```
 
 The above command starts a temporary and single-node cluster with mock TiKV. The cluster listens on the port `$LOCAL_PORT`. After the cluster is stopped, any changes already made to the database are not persisted.
