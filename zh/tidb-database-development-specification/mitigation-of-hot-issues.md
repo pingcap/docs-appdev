@@ -70,7 +70,7 @@ TiDB 发生写入热点的原因主要有以下几种：
 
 如果表的数据量比较小，数据存储大概率只涉及到一个 Region ，大量请求对该表进行写入或者读取都会造成该 Region 热点，可以通过拆分 Region 的方式进行调整：
 
-手工拆分 ：`operator add split-region 1 // 将 region 1 对半拆分成两个 Region `
+手工拆分 ：`operator add split-region 1 // 将 region 1 对半拆分成两个 Region`
 
 自动拆分：在 4.0 版本中引入了 Load Base Split 功能，可以实现热点小表的自动 Split。Load Base Split 会基于统计信息自动拆分 Region。通过统计去识别出那些读流量在10s 内持续超过阈值的 Region，并在合适的位置将这些 Region 拆分。在选择拆分的位置时，会尽可能平衡拆分后两个 Region 的访问量，并尽量避免跨 Region 的访问。在 4.0 版本上已经默认开启该功能。
 
