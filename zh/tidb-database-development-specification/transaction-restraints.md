@@ -1,4 +1,9 @@
-# 六、事务限制
+---
+title: TiDB 中文开发者指南系列-->事务限制
+summary: 介绍 TiDB 中事务的限制，比如在隔离级别、事务尺寸方面。
+---
+
+# 事务限制
 
 ## 1. 隔离级别
 
@@ -16,7 +21,7 @@ TiDB 的 SI 隔离级别可以克服幻读异常（Phantom Reads），但 ANSI/I
 
 ## 3. SI 不能克服写偏斜
 
-TiDB 的 SI 隔离级别不能克服写偏斜异常（Write Skew），需要使用 Select for update语法来克服写偏斜异常。
+TiDB 的 SI 隔离级别不能克服写偏斜异常（Write Skew），需要使用 Select for update 语法来克服写偏斜异常。
 
 写偏斜异常是指两个并发的事务读取了不同但相关的记录，接着这两个事务各自更新了自己读到的数据，并最终都提交了事务，如果这些相关的记录之间存在着不能被多个事务并发修改的约束，那么最终结果将是违反约束的。
 
@@ -32,8 +37,8 @@ TiDB 的 SI 隔离级别不能克服写偏斜异常（Write Skew），需要使�
 
 ## 4. 不支持 savepoint和嵌套事务
 
-Spring支持的PROPAGATION_NESTED传播行为会启动一个嵌套的事务，它是当前事务之上独立启动的一个子事务。嵌套事务开始时会记录一个
-savepoint，如果嵌套事务执行失败，事务将会回滚到savepoint的状态。嵌套事务是外层事务的一部分，它将会在外层事务提交时一起被提交。下面案例展示了
+Spring 支持的 PROPAGATION_NESTED 传播行为会启动一个嵌套的事务，它是当前事务之上独立启动的一个子事务。嵌套事务开始时会记录一个
+savepoint ，如果嵌套事务执行失败，事务将会回滚到 savepoint 的状态。嵌套事务是外层事务的一部分，它将会在外层事务提交时一起被提交。下面案例展示了
 savepoint 机制：
 
 ```sql
@@ -52,15 +57,14 @@ mysql> SELECT * FROM T2;
 +------+
 ```
 
-TiDB不支持savepoint机制，因此也不支持 PROPAGATION_NESTED传播行为。基于Java Spring框架的应用如果使用了 PROPAGATION_NESTED传播行为，需要在应用端做出调整，将嵌套事务的逻辑移除。
+TiDB不支持 savepoint 机制，因此也不支持 PROPAGATION_NESTED 传播行为。基于 Java Spring 框架的应用如果使用了 PROPAGATION_NESTED 传播行为，需要在应用端做出调整，将嵌套事务的逻辑移除。
 
 ## 5. 大事务限制
 
 基本原则是要限制事务的大小。TiDB 对单个事务的大小有限制，这层限制是在 KV 层面。反映在 SQL 层面的话，简单来说一行数据会映射为一个 KV entry，每多一个索引，也会增加一个 KV entry。所以这个限制反映在 SQL 层面是：
 
-- 最大单行记录容量为 120MB（TiDB v5.0 及更高的版本可通过 tidb-server 配置项
-  performance.txn-entry-size-limit 调整，低于 TiDB v5.0 的版本支持的单行容量为 6MB）
-- 支持的最大单个事务容量为 10GB（TiDB v4.0 及更高版本可通过 tidb-server 配置项 performance.txn-total-size-limit 调整，低于 TiDB v4.0
+- 最大单行记录容量为 120MB（TiDB v5.0 及更高的版本可通过 tidb-server 配置项 `performance.txn-entry-size-limit` 调整，低于 TiDB v5.0 的版本支持的单行容量为 6MB）
+- 支持的最大单个事务容量为 10GB（TiDB v4.0 及更高版本可通过 tidb-server 配置项 `performance.txn-total-size-limit` 调整，低于 TiDB v4.0
   的版本支持的最大单个事务容量为 100MB）
 
 另外注意，无论是大小限制还是行数限制，还要考虑事务执行过程中，TiDB 做编码以及事务额外 Key 的开销。在使用的时候，为了使性能达到最优，建议每 100～500 行写入一个事务。
