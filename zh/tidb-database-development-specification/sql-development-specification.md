@@ -1,5 +1,5 @@
 ---
-title: TiDB 中文开发者指南系列-->SQL 开发规范
+title: TiDB 数据库开发规范 - SQL 开发规范
 summary: 介绍 TiDB 上 SQL的推荐写法。
 ---
 
