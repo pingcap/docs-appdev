@@ -1,5 +1,5 @@
 ---
-title: TiDB 中文开发者指南系列-->JDBC 最佳实践
+title: TiDB 数据库开发规范 - JDBC 最佳实践
 summary: 介绍 JDBC 连接串的较好配置。
 ---
 
