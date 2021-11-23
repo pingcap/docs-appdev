@@ -1,5 +1,5 @@
 ---
-title: TiDB 中文开发者指南系列-->TiDB 中的各种超时
+title: TiDB 数据库开发规范 - TiDB 中的各种超时
 summary: 介绍 TiDB 中的各种超时设置和使用方式。
 ---
 
