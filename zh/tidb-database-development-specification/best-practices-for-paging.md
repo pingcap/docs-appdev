@@ -1,59 +1,61 @@
-# 十四、分页的最佳实践
+---
+title: TiDB 中文开发者指南系列-->分页的最佳实践
+summary: 介绍分页 SQL 的较好的写法。
+---
 
-## 1. 分页查询
+# 分页的最佳实践
 
-1）基本原则：
+## 1. 分页查询的基本原则
 
 分页查询语句全部都需要带有排序条件，除非业务方明确要求不要使用任何排序来随机展示数据。
 
-2）详细说明：
+详细例子如下：
 
 - 常规分页语句写法（start：起始记录数，page_offset：每页记录数）：
 
-```sql
-select * from table_a t order by gmt_modified desc limit start，page_offset;
-```
-
-- 多表 Join 的分页语句，如果过滤条件在某一张表上，通过子查询过滤数据后分页，再 Join：   
-
-  低效的写法：
-
   ```sql
   select * from table_a t order by gmt_modified desc limit start，page_offset;
-  
-  select a.column_a，a.column_b .. . b.column_a，b.column_b .. .  
-  from table_t a，table_b b  
-  where a.xxx.. .  
-  and a.column_c = b.column_d  
-  order by a.yyy
-  limit start，page_offset;
   ```
 
-  高效的写法： 
+- 多表 Join 的分页语句，如果过滤条件在某一张表上，通过子查询过滤数据后分页，再 Join： 
 
-  ```sql
-  select a.column_a，a.column_b .. . b.column_a，b.column_b .. . 
-  from
-  (select t.column_a，t.column_b .. .
-  from table_t t
-  where t.xxx.. .
-  order by t.yyy 
-  limit start，page_offerset) a,
-  table_b b
-  where a.column_c = b.column_d;
-  
-  select * from t limit 10000,10;
-  select * from t order by c limit 10000,10;
-  ```
+    低效的写法：
+
+    ```sql
+    select * from table_a t order by gmt_modified desc limit start，page_offset;
+    
+    select a.column_a，a.column_b .. . b.column_a，b.column_b .. .  
+    from table_t a，table_b b  
+    where a.xxx.. .  
+    and a.column_c = b.column_d  
+    order by a.yyy
+    limit start，page_offset;
+    ```
+
+    高效的写法： 
+
+    ```sql
+    select a.column_a，a.column_b .. . b.column_a，b.column_b .. . 
+    from
+    (select t.column_a，t.column_b .. .
+    from table_t t
+    where t.xxx.. .
+    order by t.yyy 
+    limit start，page_offerset) a,
+    table_b b
+    where a.column_c = b.column_d;
+    
+    select * from t limit 10000,10;
+    select * from t order by c limit 10000,10;
+    ```
 
 ## 2. 单字段主键表的分页批处理
 
-常规的分页更新 SQL 一般使用主键或者唯一索引进行排序，再配合 MySQL limit 语法中非常好用的 offset
-功能按固定行数拆分页面，然后把页面包装进独立的事务中，从而实现灵活的分页更新。
+常规的分页更新 SQL 一般使用主键或者唯一索引进行排序，再配合 MySQL limit 语法中非常好用的 offset 功能按固定行数拆分页面，然后把页面包装进独立的事务中，从而实现灵活的分页更新。
 
 但是，劣势也很明显：由于需要对主键或者唯一索引进行排序，越靠后的页面参与排序的行数就会越多，尤其当批量处理涉及的数据体量较大时，可能会占用过多计算资源。
 
-首先将数据按照主键排序，然后调用窗口函数 row_number() 为每一行数据生成行号，接着调用聚合函数按照设置好的页面大小对行号进行分组，最终计算出每页的最小值和最大值。
+首先将数据按照主键排序，然后调用窗口函数 `row_number()` 为每一行数据生成行号，接着调用聚合函数按照设置好的页面大小对行号进行分组，最终计算出每页的最小值和最大值。
 
 ```sql
 MySQL [demo]> select min(t.serialno) as start_key, max(t.serialno) as end_key, count(*) as page_size from ( select *, row_number () over (order by serialno) as row_num from tmp_loan ) t group by floor((t.row_num - 1) / 50000) order by start_key;
@@ -73,13 +75,13 @@ MySQL [demo]> select min(t.serialno) as start_key, max(t.serialno) as end_key, c
 40 rows in set (1.51 sec)
 ```
 
-接下来，只需要使用 serialno between start_key and end_key 查询每个分片的数据即可。如果修改数据时，也可以借助上面计算好的分片信息，实现高效数据更新。
+接下来，只需要使用 `serialno between start_key and end_key` 查询每个分片的数据即可。如果修改数据时，也可以借助上面计算好的分片信息，实现高效数据更新。
 
 改进方案由于规避了频繁的数据排序操作造成的性能损耗，显著改善了批量处理的效率。
 
 ## 3. 复合主键表的分页批处理
 
-对于非索引组织表，可以使用隐藏字段 \_tidb_rowid 做分页使用。
+对于非索引组织表，可以使用隐藏字段 `_tidb_rowid` 做分页使用。
 
 对于索引组织表，可以用如下方式进行分页计算：
 
