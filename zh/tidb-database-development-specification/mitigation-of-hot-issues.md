@@ -36,7 +36,7 @@ ALTER TABLE 语句示例：`ALTER TABLE t SHARD_ROW_ID_BITS = 4 PRE_SPLIT_REGION
 
 对索引组织表来说，它无法利用到 SHARD_ROW_ID_BITS 的优化，可以通过修改序列号的生成方式来构成多个写入分片来分散写入热点。
 
-AUTO_INCREMENT 主键可通过 AUTO_RANDOM 机制来打散写入热点，详见[官网文档](https://docs.pingcap.com/zh/tidb/v4.0/troubleshoot-hot-spot-issues#%E4%BD%BF%E7%94%A8-auto_random-%E5%A4%84%E7%90%86%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E7%83%AD%E7%82%B9%E8%A1%A8)。
+AUTO_INCREMENT 主键可通过 AUTO_RANDOM 机制来打散写入热点，详见[官网文档](https://docs.pingcap.com/zh/tidb/v4.0/troubleshoot-hot-spot-issues#使用-auto_random-处理自增主键热点表)。
 
 例如以下示例 为Snowflake 生成的序列号。经过转换，将最后一位数字移动到左数第二个数字的位置，原左数第二位数字及之后的所有数字向右移动一位。以此来让生成的 ID 跨越 96MB 的 region 容量，落在 10 个不同的分片中。左侧为原本要写入表中的序列号值，右侧为转换后的序列号。经过转换后的序列号不再连续且离散程度足以跳过一个 region 大小，以此方式来分散写入热点：
 
