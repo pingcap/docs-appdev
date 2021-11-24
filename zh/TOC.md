@@ -14,7 +14,7 @@
 - [常见参数说明](configuration.md)
 - [SQL 开发规范及基本原则说明](basic-principles.md)
 - TiDB 数据库开发规范
-  - [前言](/tidb-database-development-specification/introduction.md)
+  + [前言](/tidb-database-development-specification/introduction.md)
   - [对象命名规范](/tidb-database-development-specification/object-naming-guidelines.md)
   - [数据库对象设计](/tidb-database-development-specification/database-object-design.md)
   - [数据模型设计](/tidb-database-development-specification/database-model-design.md)
