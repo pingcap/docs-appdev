@@ -58,4 +58,26 @@ summary: 为开发者提供 TiDB 中文版开发指南。
 
 </NavColumn>
 
+<NavColumn>
+<ColumnTitle>TiDB 数据库开发规范</ColumnTitle>
+
+- [前言](tidb-database-development-specification/introduction.md)
+- [对象命名规范](tidb-database-development-specification/object-naming-guidelines.md)
+- [数据库对象设计](tidb-database-development-specification/database-object-design.md)
+- [数据模型设计](tidb-database-development-specification/database-model-design.md)
+- [SQL 开发规范](tidb-database-development-specification/sql-development-specification.md)
+- [事务限制](tidb-database-development-specification/transaction-restraints.md)
+- [隐式类型转换](tidb-database-development-specification/implicit-type-conversion.md)
+- [结果集不稳定](tidb-database-development-specification/unstable-result-set.md)
+- [索引的使用注意](tidb-database-development-specification/notes-on-indexes.md)
+- [自增列的使用注意](tidb-database-development-specification/notes-on-auto-increment-columns.md)
+- [TiDB 中的各种超时](tidb-database-development-specification/timeouts-in-tidb.md)
+- [JDBC 最佳实践](tidb-database-development-specification/jdbc-best-practices.md)
+- [缓解热点问题](tidb-database-development-specification/mitigation-of-hot-issues.md)
+- [分页的最佳实践](tidb-database-development-specification/best-practices-for-paging.md)
+- [唯一序列号生成方案](tidb-database-development-specification/unique-serial-number-generation-scheme.md)
+- [流程规范](tidb-database-development-specification/process-specification.md)
+
+</NavColumn>
+
 </NavColumns>
