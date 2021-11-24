@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf8
 #
-# Generate all-in-one Markdown file for ``dev-guide``
+# Generate all-in-one Markdown file for ``doc-cn``
 # Tip: 不支持中文文件名
 # readme.md 中的目录引用的md多次（或者md的sub heading)，以第一次出现为主
 # 每个版本都会生成一个自己的 PDF
@@ -33,13 +33,8 @@ with open(entry_file) as fp:
     level = 0
     current_level = ""
     for line in fp:
-        if not in_toc and line.startswith("## "):
+        if not in_toc and not line.startswith("<!-- "):
             in_toc = True
-        elif in_toc and line.startswith('## '):
-            in_toc = False
-            # yes, toc processing done
-            # contents.append(line[1:]) # skip 1 level TOC
-            break
         elif in_toc and not line.startswith('#') and line.strip():
             ## get level from space length
             level_space_str = level_pattern.findall(line)[0][:-1]
@@ -65,9 +60,6 @@ with open(entry_file) as fp:
 
         else:
             pass
-
-    # overview part in README.md
-    followups.insert(1, ("RAW", 0, fp.read()))
 
 # stage 2, get file heading
 file_link_name = {}
@@ -98,7 +90,9 @@ def replace_link_wrap(chapter, name):
         link_name = match.group(1)
         link = match.group(2)
         frag = match.group(3)
-        if link.endswith('.md') or '.md#' in link:
+        if link.startswith('http'):
+            return full
+        elif link.endswith('.md') or '.md#' in link:
             if not frag:
                 relative_path = ''
                 if not link.startswith('.'):
@@ -131,6 +125,7 @@ def replace_heading_func(diff_level=0):
 # remove copyable snippet code
 def remove_copyable(match):
     return ''
+
 
 # stage 3, concat files
 for type_, level, name in followups:
