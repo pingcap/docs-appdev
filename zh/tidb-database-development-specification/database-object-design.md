@@ -88,6 +88,8 @@ summary: 介绍如何设计数据库中的对象，如索引、字段类型等�
 
    - 不建议使用 ENUM、SET 类型，尽量使用 TINYINT 来代替。
 
+   - 当使用宽字段类型（如 Text、MediumBlob、MediumText）时，需注意读取并发度，以控制内存使用预防 OOM 。
+
 ## 3. 字段默认值
 
 1. 在一个数据类型描述中的 DEFAULT value 段描述了一个列的默认值。这个默认值必须是常量，不可以是一个函数或者是表达式。但是对于时间类型，可以例外的使用NOW、CURRENT_TIMESTAMP、LOCALTIME、LOCALTIMESTAMP 等函数作为 DATETIME 或者 TIMESTAMP 的默认值。
