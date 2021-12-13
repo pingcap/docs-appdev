@@ -42,3 +42,5 @@ TiDB 实现自增 ID 的原理是每个 tidb-server 实例缓存一段 ID 值用
 1. 确认表上自增值的最大值：`show create table t;`
 
 2. 修改表上的自增值最大值到一个更大的值：`alter table t AUTO_INCREMENT=120000;`
+
+自增列的另外一个问题是：因为每个显式赋值，都需要 reset auto_increment 动作，这会体现在SQL 的 prepare 时间变长。这一点 尤其在批量数据操作中 体现明显，需要避免这样的使用方式。
