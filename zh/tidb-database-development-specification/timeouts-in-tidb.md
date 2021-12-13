@@ -18,9 +18,9 @@ TiDB 的事务的实现采用了 MVCC（多版本并发控制）机制，当新�
 
 ## 2. 事务超时
 
-含 DML 语句的事务，除了受 `tikv_gc_life_time` 限制之外，还受到另外一个参数 `max-txn-time-use` 的影响，这个参数位于 tidb-server 的配置文件 tidb.toml 中，用于控制单个事务允许的最大执行时间。该参数的默认值为 590（秒），需要注意必须控制该参数的值小于 `tikv_gc_life_time` 的值。
+垃圾回收 (GC) 不会影响到正在执行的事务。但悲观事务的运行仍有上限，有基于事务超时的限制（TiDB 配置文件 [performance] 类别下的 `max-txn-ttl` 修改，默认为 60 分钟）和 基于事务使用内存的限制。
 
-形如 `insert into t10 select * from t1` 的 SQL 语句，即使执行时间没有达到 `tikv_gc_life_time` 限制，但超过了 `max-txn-time-use` 的限制，会由于超时而回滚。
+形如 `insert into t10 select * from t1` 的 SQL 语句，不会受到 GC 的影响，但超过了 `max-txn-ttl`  的时间后，会由于超时而回滚。 
 
 ## 3. SQL 执行时间超时
 
