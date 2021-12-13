@@ -68,3 +68,10 @@ TiDB不支持 savepoint 机制，因此也不支持 PROPAGATION_NESTED 传播行
   的版本支持的最大单个事务容量为 100MB）
 
 另外注意，无论是大小限制还是行数限制，还要考虑事务执行过程中，TiDB 做编码以及事务额外 Key 的开销。在使用的时候，为了使性能达到最优，建议每 100～500 行写入一个事务。
+
+## 6. 自动提交的 SELECT FOR UPDATE 语句不会等锁
+
+自动提交下的 select for update 目前不会加锁。 这是是已知的与 MySQL 不兼容的地方。
+![TiDB中的行为](../../media/autocommit_selectforupdate_nowaitlock.png)
+
+可以通过使用显式的 `begin;commit;` 来解决该问题。
