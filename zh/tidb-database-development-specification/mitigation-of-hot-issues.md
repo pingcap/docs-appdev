@@ -63,7 +63,6 @@ TiDB 发生写入热点的原因主要有以下几种：
     
     表 1. 将连续的写入转换为 10 个分片写入的案例
     
-    
 3. 分区表
 
     [分区表](https://docs.pingcap.com/zh/tidb/stable/partitioned-table#%E5%88%86%E5%8C%BA%E8%A1%A8)（[partitioned table](https://docs.pingcap.com/tidb/stable/partitioned-table)）可以将一张表的数据分散到多张物理表中，而多张物理表的数据是分散在多个 region 中的，因此通过合理的设计分区规则，可以进一步避免写入热点问题。
