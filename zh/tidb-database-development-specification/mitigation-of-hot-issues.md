@@ -37,6 +37,7 @@ TiDB 发生写入热点的原因主要有以下几种：
     CREATE TABLE 语句示例：`CREATE TABLE t (c int) SHARD_ROW_ID_BITS = 4 PRE_SPLIT_REGIONS=4;`
     
     ALTER TABLE 语句示例：`ALTER TABLE t SHARD_ROW_ID_BITS = 4 PRE_SPLIT_REGIONS=4;`
+    
 2. 避免连续自增的主键设计
 
     对索引组织表来说，它无法利用到 `SHARD_ROW_ID_BITS` 的优化，可以通过修改序列号的生成方式来构成多个写入分片来分散写入热点。
@@ -59,6 +60,8 @@ TiDB 发生写入热点的原因主要有以下几种：
     | 56163237173710028**8** | 5**8**6163237173710028 |
     
     表 1. 将连续的写入转换为 10 个分片写入的案例
+    
+    但是也要避免生成过于随机的主键（比如使用 UUID）。这是因为尽管其离散程度很高，但是也会因此带来网络层低效攒批、RocksDB compaction时的写入放大、Regions的过量激活问题，给整体NETWORK 和 IO 和 CPU 都带来压力。
 
 3. 分区表
 
