@@ -60,7 +60,9 @@ TiDB 发生写入热点的原因主要有以下几种：
     
     表 1. 将连续的写入转换为 10 个分片写入的案例
 
-3. 分区表
+3. 对单调递增的索引（如时间索引、右增索引等），在插入的时候会有写入热点的问题（原理同表插入数据的过程）。解决办法是通过手工切分热点 Region的方式 来提前打散。切分的办法 请参见 官网文档 《Split Region》章节。
+
+4. 分区表
 
     [分区表](https://docs.pingcap.com/zh/tidb/stable/partitioned-table#%E5%88%86%E5%8C%BA%E8%A1%A8)（[partitioned table](https://docs.pingcap.com/tidb/stable/partitioned-table)）可以将一张表的数据分散到多张物理表中，而多张物理表的数据是分散在多个 region 中的，因此通过合理的设计分区规则，可以进一步避免写入热点问题。
 
