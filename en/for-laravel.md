@@ -43,7 +43,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     {{< copyable "" >}}
 
     ```sql
-    CREATE USER <username> WITH PASSWORD <password>;
+    CREATE USER <username> IDENTIFIED BY <password>;
     ```
 
     Take note of the username and password. You will use them in your application code when initializing the project.
@@ -53,7 +53,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     {{< copyable "" >}}
 
     ```sql
-    GRANT ALL ON DATABASE laravel_demo TO <username>;
+    GRANT ALL ON laravel_demo.* TO <username>;
     ```
 
 ## Step 3. Prepare your Laravel project

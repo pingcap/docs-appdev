@@ -43,7 +43,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     {{< copyable "sql" >}}
 
     ```sql
-    CREATE USER <username> WITH PASSWORD <password>;
+    CREATE USER <username> IDENTIFIED BY <password>;
     ```
 
     Take note of the username and password. You will use them in your application code when initializing the project.
@@ -53,7 +53,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     {{< copyable "sql" >}}
 
     ```sql
-    GRANT ALL ON DATABASE django TO <username>;
+    GRANT ALL ON django.* TO <username>;
     ```
 
 ## Step 3. Set virtual environments and initialize the project
