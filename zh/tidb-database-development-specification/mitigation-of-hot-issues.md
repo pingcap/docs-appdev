@@ -30,13 +30,16 @@ TiDB 发生写入热点的原因主要有以下几种：
 
 1. 配置 `SHARD_ROW_ID_BITS` 参数打散写入热点
 
-    对于非索引组织表（默认行为），TiDB 会使用一个隐式的自增 rowid，大量 INSERT 时会把数据集中写入单个 Region，造成写入热点。 通过设置 `SHARD_ROW_ID_BITS` 可以把 rowid 打散写入多个不同的 Region，缓解写入热点问题。 但是设置的过大会造成 RPC 请求数放大，增加 CPU 和网络开销。
+    对于非索引组织表（默认行为），TiDB 会使用一个隐式的自增 rowid，大量 INSERT 时会把数据集中写入单个 Region，造成写入热点。 通过设置 `SHARD_ROW_ID_BITS` 可以把 rowid 打散写入多个不同的 Region，缓解写入热点问题。 
+    但是设置的过大会造成 RPC 请求数放大，增加 CPU 和网络开销。需注意：通过其他方式设计的随机主键，当主键过分打散时，也会存在同样的问题。
+    其他方式生成的过于随机的主键（比如使用 UUID）也会有此问题。这是因为尽管其离散程度很高，但是也会因此带来网络层低效攒批、RocksDB compaction时的写入放大、Regions的过量激活问题，给整体NETWORK 和 IO 和 CPU 都带来压力。    
     
     用 `SHARD_ROW_ID_BITS` 来设置隐藏列 \_tidb_rowid 分片数量的 bit 位数，默认值为 0，即 2\^0 = 1 个分片。SHARD_ROW_ID_BITS = 4 代表 16 个分片， `SHARD_ROW_ID_BITS = 6` 表示 64 个分片， `SHARD_ROW_ID_BITS = 0` 就是默认值 1 个分片 。
     
     CREATE TABLE 语句示例：`CREATE TABLE t (c int) SHARD_ROW_ID_BITS = 4 PRE_SPLIT_REGIONS=4;`
     
     ALTER TABLE 语句示例：`ALTER TABLE t SHARD_ROW_ID_BITS = 4 PRE_SPLIT_REGIONS=4;`
+    
 2. 避免连续自增的主键设计
 
     对索引组织表来说，它无法利用到 `SHARD_ROW_ID_BITS` 的优化，可以通过修改序列号的生成方式来构成多个写入分片来分散写入热点。
@@ -59,7 +62,7 @@ TiDB 发生写入热点的原因主要有以下几种：
     | 56163237173710028**8** | 5**8**6163237173710028 |
     
     表 1. 将连续的写入转换为 10 个分片写入的案例
-
+    
 3. 分区表
 
     [分区表](https://docs.pingcap.com/zh/tidb/stable/partitioned-table#%E5%88%86%E5%8C%BA%E8%A1%A8)（[partitioned table](https://docs.pingcap.com/tidb/stable/partitioned-table)）可以将一张表的数据分散到多张物理表中，而多张物理表的数据是分散在多个 region 中的，因此通过合理的设计分区规则，可以进一步避免写入热点问题。
