@@ -71,7 +71,7 @@ TiDB不支持 savepoint 机制，因此也不支持 PROPAGATION_NESTED 传播行
 
 ## 6. 自动提交的 SELECT FOR UPDATE 语句不会等锁
 
-自动提交下的 select for update 目前不会加锁。 这是是已知的与 MySQL 不兼容的地方。
-![TiDB中的行为](../../media/autocommit_selectforupdate_nowaitlock.png)
-
-可以通过使用显式的 `begin;commit;` 来解决该问题。
+自动提交下的 select for update 目前不会加锁。效果如下图所示：
+![TiDB中的情况](../../media/autocommit_selectforupdate_nowaitlock.png)
+这是已知的与 MySQL 不兼容的地方。
+可以通过使用显式的 `begin;commit;` 解决该问题。
