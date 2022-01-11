@@ -217,7 +217,7 @@ This document lists some of the app development guides that show you how to buil
     <th>Example</th>
   </tr>
   <tr>
-    <td>ActiveRecord</td>
+    <td>Active Record</td>
     <td>6.1</td>
     <td>Verified</td>
     <td><a href="https://pingcap.com/blog/build-a-ruby-on-rails-app-with-tidb">Power Up Your Rails Apps with a NewSQL Database</a></td>
