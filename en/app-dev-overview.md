@@ -1,7 +1,7 @@
 ---
 title: App Development Overview
 summary: Learn the overview of App development.
-aliases: ['/tidb/dev/connectors-and-apis']
+aliases: ['/tidb/dev/connectors-and-apis/','/zh/tidb/dev/connectors-and-apis/']
 ---
 
 # App Development Overview
