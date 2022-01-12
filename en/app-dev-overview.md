@@ -15,7 +15,7 @@ This document lists some of the app development guides that show you how to buil
 > The support levels for connectors and ORM frameworks are described as follows:
 >
 > - Full support: There is no known issue using the driver or connector with TiDB.
-> - Verified support: You might encounter errors when using some of the features, due to "unsupported features" of TiDB. For example, TiDB does not support Foreign Key constraints, so the foreign key related features do not work in Hibernate. However, all other features have been verified.
+> - Verified support: You might encounter errors when using some of the features, due to "unsupported features" of TiDB. For example, TiDB does not support Foreign Key constraints, so the foreign key related features do not work in Hibernate. However, all other features have been verified. 
 
 ## Connectors
 
