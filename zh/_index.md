@@ -77,7 +77,7 @@ summary: 为开发者提供 TiDB 中文版开发指南。
 - [分页的最佳实践](tidb-database-development-specification/best-practices-for-paging.md)
 - [唯一序列号生成方案](tidb-database-development-specification/unique-serial-number-generation-scheme.md)
 - [流程规范](tidb-database-development-specification/process-specification.md)
-- [TiDB 大整数最佳实践](tidb-database-development-specification/best-practice-in-using-bigint-data-type.md)
+- [大整数最佳实践](tidb-database-development-specification/best-practice-in-using-bigint-data-type.md)
 
 </NavColumn>
 
