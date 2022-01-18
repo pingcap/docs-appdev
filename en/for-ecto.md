@@ -148,6 +148,7 @@ Now the application configurations are ready, we can run Ecto Migrations.
     ```
 
     {{< copyable "" >}}
+
     ```sql
     mysql> show databases;
     +--------------------+
@@ -218,4 +219,3 @@ Now the application configurations are ready, we can run Ecto Migrations.
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
     1 row in set (0.00 sec)
     ```
-
