@@ -177,6 +177,6 @@ mysql> select a.class, a.stuname, b.course, b.courscore from stu_info a join stu
     
     ```
 
-## 4. select \* from t limit 10 的结果依赖于数据插入顺序
+## 4. select \* from t limit n 的结果不稳定
 
-对简单查询如 \`select \* from t limit 10\`，其返回结果和数据插入顺序有关。如果数据重新导入一遍，顺序变了，那select \* from t limit 10 结果哪些是对的，语义不清楚，结果会不固定。
+返回结果与数据在 TiKV 节点上的分布有关。如果多次查询，TiKV 不同节点返回的速度和同节点返回的数据不一样，都会造成结果不稳定。
