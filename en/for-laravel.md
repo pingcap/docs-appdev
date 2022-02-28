@@ -102,7 +102,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=4000
-    DB_DATABASE=lavavel_demo
+    DB_DATABASE=laravel_demo
     DB_USERNAME=root
     DB_PASSWORD=
     ```
@@ -274,7 +274,6 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
-
     class Customer extends Model
     {
         use HasFactory;
@@ -306,8 +305,8 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
     {{< copyable "" >}}
 
     ```bash
-    php artisan controller:make CustomerController
-    php artisan controller:make OrderController
+    php artisan make:controller CustomerController
+    php artisan make:controller OrderController
     ```
 
 2. Edit `app/Http/Controllers/CustomerController.php` to control the action against the `customer` table.
@@ -339,7 +338,41 @@ Laravel uses the [Eloquent](https://laravel.com/docs/8.x/eloquent) model, an ORM
     }
     ```
 
-3. Edit `app/Http/Controllers/OrderController.php` to control the action against the order table.
+3. Edit `app/Http/Controllers/OrderController.php` to control the action against the `order` table.
+
+    {{<copyable "" >}}
+
+    ```php
+    <?php
+
+    namespace App\Http\Controllers;
+
+    use App\Models\Order;
+    use Illuminate\Http\Request;
+
+    class OrderController extends Controller
+    {
+
+        public function insert(Request $request) {
+            return Order::create(['cid' => $request->cid, 'price' => $request->price]);
+        }
+
+        public function delete($oid)
+        {
+            return Order::where('oid', $oid)->delete();
+        }
+
+        public function updateByOid(Request $request, $oid)
+        {
+            return Order::where('oid', $oid)->update(['price' => $request->price]);
+        }
+
+        public function queryByCid(Request $request)
+        {
+            return Order::where('cid', $request->query('cid'))->get();
+        }
+    }
+    ```
 
 ### Update the URL routes
 
