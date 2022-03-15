@@ -168,7 +168,6 @@ After you have configured the application's database connection, you can start b
                     return on_failure
         return retry
 
-
     class PingView(View):
         def get(self, request, *args, **kwargs):
             return HttpResponse("python/django", status=200)
