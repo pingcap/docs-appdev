@@ -14,7 +14,7 @@ _version_tag="$(date '+%Y%m%d')"
 
 # default version: `pandoc --latex-engine=xelatex doc.md -s -o output2.pdf`
 # used to debug template setting error
-lang=(zh)
+lang=(zh en)
 
 for d in "${lang[@]}"
 do
