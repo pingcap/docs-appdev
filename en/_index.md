@@ -9,14 +9,14 @@ TiDB supports the MySQL protocol and most of the MySQL features. In general, to 
 
 This series of documents are app development guides that show you how to build simple applications based on TiDB.
 
-<NavColum>
+<NavColumn>
 <ColumnTitle><strong>About App Development Guide</strong></ColumnTitle>
 
 - [App Development Overview](app-dev-overview.md)
 
-</NavColum>
+</NavColumn>
 
-<NavColum>
+<NavColumn>
 <ColumnTitle><strong>Quick Starts</strong></ColumnTitle>
 
 - [For Hibernate ORM](for-hibernate-orm.md)
@@ -27,4 +27,4 @@ This series of documents are app development guides that show you how to build s
 - [For mysql-connector-python](for-python-mysql-connector.md)
 - [For Laravel](for-laravel.md)
 
-</NavColum>
+</NavColumn>
