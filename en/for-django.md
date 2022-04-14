@@ -73,13 +73,13 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
     {{< copyable "" >}}
 
     ```bash
+    poetry init --no-interaction --dependency django
     poetry run django-admin startproject tidb_example
 
     mv pyproject.toml ./tidb_example
     cd tidb_example
 
-    poetry add git+https://github.com/pingcap/django-tidb.git@main
-    poetry add mysqlclient
+    poetry add django-tidb
 
     poetry shell
     ```
@@ -257,7 +257,7 @@ curl --request POST '127.0.0.1:8000/order/' \
 
 curl --request PATCH '127.0.0.1:8000/order/' --data-raw '{ "oid": 1, "price": 312 }'
 
-curl  --request GET '127.0.0.1:8000/order/' --data-raw '{ "oid": 1 }'
+curl --request GET '127.0.0.1:8000/order/' --data-raw '{ "oid": 1 }'
 ```
 
 To verify whether the data insertion is successful, open the terminal with the SQL shell to check:
@@ -280,5 +280,5 @@ The result above shows that the data insertion is successful. Then you can delet
 {{< copyable "" >}}
 
 ```bash
-curl  --request DELETE '127.0.0.1:8000/order/' --data-raw '{ "oid": 1 }'
+curl --request DELETE '127.0.0.1:8000/order/' --data-raw '{ "oid": 1 }'
 ```
