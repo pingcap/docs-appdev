@@ -70,13 +70,6 @@ cd todo
 go mod init todo
 ```
 ### Initialize project
-To initialize the project, run the following commands:
-
-{{< copyable "" >}}
-
-```bash
-go get -d entgo.io.ent/cmd/ent
-```
 First, we need to install Ent and initialize the project structure. run:
 
 {{< copyable "" >}}
@@ -193,6 +186,6 @@ go run main.go
 The expected output is as follows:
 ```
 The following todos contain 'tomato' in their content:
-[Todo(id=11, title=buy groceries, content=tomato, lettuce and cucumber, done=false, created_at=Mon May  2 14:32:20 2022)]
+[Todo(id=1, title=buy groceries, content=tomato, lettuce and cucumber, done=false, created_at=Mon May  2 14:32:20 2022)]
 deleted 1 todos
 ```

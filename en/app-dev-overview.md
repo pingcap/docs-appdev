@@ -153,7 +153,7 @@ This document lists some of the app development guides that show you how to buil
   </tr>
   <tr>
     <td>Ent</td>
-    <td>v0.10.2 or later</td>
+    <td></td>
     <td>Verified</td>
     <td><a href="https://docs.pingcap.com/appdev/dev/for-ent">App Development for Ent</a></td>
   </tr>
