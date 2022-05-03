@@ -159,7 +159,7 @@ func main() {
 		SetCreatedAt(time.Now()).
 		SaveX(context.Background())
 
-		// query todo with 'where' filter
+    // query todo with 'where' filter
 	todos := client.Todo.Query().
 		Where(todo.ContentContains("tomato")).
 		AllX(context.Background())
