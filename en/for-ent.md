@@ -75,8 +75,7 @@ First, we need to install Ent and initialize the project structure. run:
 {{< copyable "" >}}
 
 ```bash
-go get -d entgo.io/ent/cmd/ent
-go run entgo.io/ent/cmd/ent init Todo
+go run -mod=mod entgo.io/ent/cmd/ent init Todo
 ```
 After running the above, your project directory should look like this:
 ```bash
@@ -159,7 +158,7 @@ func main() {
 		SetCreatedAt(time.Now()).
 		SaveX(context.Background())
 
-    // query todo with 'where' filter
+	// query todo with 'where' filter
 	todos := client.Todo.Query().
 		Where(todo.ContentContains("tomato")).
 		AllX(context.Background())
