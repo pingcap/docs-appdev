@@ -188,3 +188,12 @@ The following todos contain 'tomato' in their content:
 [Todo(id=1, title=buy groceries, content=tomato, lettuce and cucumber, done=false, created_at=Mon May  2 14:32:20 2022)]
 deleted 1 todos
 ```
+
+## What's next?
+
+Learn more about how to use [Ent Framework](https://entgo.io/).
+
+You might also be interested in the following:
+* Automatically generate feature-rich, performant, and clean [GraphQL](https://entgo.io/docs/graphql/), [REST](https://entgo.io/blog/2021/07/29/generate-a-fully-working-go-crud-http-api-with-ent/), and [gRPC](https://entgo.io/docs/grpc-intro/) servers using Ent
+* [Versioned Migrations with Ent](https://entgo.io/docs/versioned-migrations/)
+* [Extending Ent with the Extension API](https://entgo.io/blog/2021/09/02/ent-extension-api)
