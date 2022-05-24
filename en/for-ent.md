@@ -59,6 +59,7 @@ The above command starts a temporary and single-node cluster with mock TiKV. The
 ## Step 3. Get and run the application code
 
 ### Prerequisites
+
 Make sure you have [Go](https://golang.org/doc/install) installed (1.17 or above).  
 Create a folder for this demo, and initialize using `go mod`:
 
@@ -71,6 +72,7 @@ go mod init todo
 ```
 
 ### Initialize project
+
 First, we need to install Ent and initialize the project structure. run:
 
 {{< copyable "" >}}
@@ -80,6 +82,7 @@ go run -mod=mod entgo.io/ent/cmd/ent init Todo
 ```
 
 After running the above, your project directory should look like this:
+
 ```bash
 .
 ├── ent
@@ -115,6 +118,7 @@ go generate ./ent
 ```
 
 ### Run the example application
+
 Create a file named `main.go` in your project's root folder and copy to it the the following code:
 
 {{< copyable "" >}}
@@ -200,6 +204,7 @@ deleted 1 todos
 Learn more about how to use [Ent Framework](https://entgo.io/).
 
 You might also be interested in the following:
+
 * Automatically generate feature-rich, performant, and clean [GraphQL](https://entgo.io/docs/graphql/), [REST](https://entgo.io/blog/2021/07/29/generate-a-fully-working-go-crud-http-api-with-ent/), and [gRPC](https://entgo.io/docs/grpc-intro/) servers using Ent
 * [Versioned Migrations with Ent](https://entgo.io/docs/versioned-migrations/)
 * [Extending Ent with the Extension API](https://entgo.io/blog/2021/09/02/ent-extension-api)
