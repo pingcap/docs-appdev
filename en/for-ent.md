@@ -69,6 +69,7 @@ mkdir todo
 cd todo
 go mod init todo
 ```
+
 ### Initialize project
 First, we need to install Ent and initialize the project structure. run:
 
@@ -77,6 +78,7 @@ First, we need to install Ent and initialize the project structure. run:
 ```bash
 go run -mod=mod entgo.io/ent/cmd/ent init Todo
 ```
+
 After running the above, your project directory should look like this:
 ```bash
 .
@@ -87,6 +89,7 @@ After running the above, your project directory should look like this:
 ├── go.mod
 └── go.sum
 ```
+
 Open `schema/todo.go` and add some fields to the `Todo` entity:
 
 {{< copyable "" >}}
@@ -102,6 +105,7 @@ func (Todo) Fields() []ent.Field {
 	}
 }
 ```
+
 Finally, run:
 
 {{< copyable "" >}}
@@ -172,6 +176,7 @@ func main() {
 	fmt.Printf("deleted %d todos\n", deletedCount)
 }
 ```
+
 ### Run the code
 
 Run the `main.go` code:
@@ -183,6 +188,7 @@ go run main.go
 ```
 
 The expected output is as follows:
+
 ```
 The following todos contain 'tomato' in their content:
 [Todo(id=1, title=buy groceries, content=tomato, lettuce and cucumber, done=false, created_at=Mon May  2 14:32:20 2022)]
