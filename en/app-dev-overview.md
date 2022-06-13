@@ -151,6 +151,12 @@ This document lists some of the app development guides that show you how to buil
     <td>Verified</td>
     <td><a href="https://docs.pingcap.com/appdev/dev/for-gorm">App Development for GORM</a></td>
   </tr>
+  <tr>
+    <td>Ent</td>
+    <td></td>
+    <td>Verified</td>
+    <td><a href="https://docs.pingcap.com/appdev/dev/for-ent">App Development for Ent</a></td>
+  </tr>
 </table>
 
 <table style="display: table; width: 100%;">
